@@ -1,0 +1,59 @@
+﻿@model Dictionary<string, double>
+@{
+    ViewBag.Title = "Calculator";
+    var dropDownItems = new SelectList(Model.Select(x => new { value = x.Value, text = x.Key }), "value", "text");
+}
+<img src="~/Content/data-school.png" />
+<hr />
+<div class="card-panel">
+    <form action="" method="get" class="center">
+        <div class="row">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="@((ViewBag.Quantity == 0 || ViewBag.Quantity == null) ? 1 : ViewBag.Quantity)" />
+        </div>
+
+        <div class="row">
+            <label>Type</label>
+            @Html.DropDownList("type", dropDownItems)
+        </div>
+
+        <div class="row">
+            <label>Kilo</label>
+            <select name="kilo">
+                <option value="1000" selected="@(ViewBag.SelectedKilo == 1000 ? true : false)">1000</option>
+                <option value="1024" selected="@(ViewBag.SelectedKilo == 1024 ? true : false)">1024</option>
+            </select>
+            <br />
+        </div>
+        <input type="submit" value="Calculate" class="btn center" />
+        <br />
+    </form>
+
+    <div class="row">
+        <div class="col-md-offset-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var unit in Model)
+                    {
+                        var quantity = ViewBag.Quantity;
+                        var currentValue = ViewBag.SelectedType * quantity / unit.Value;
+                        <tr>
+                            <td>@unit.Key</td>
+                            <td>@currentValue</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Heading{
+    <h1 class="text-center">Bit Calculator</h1>
+}
