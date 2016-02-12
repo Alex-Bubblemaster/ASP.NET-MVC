@@ -1,0 +1,23 @@
+﻿@model Movies.Models.StudioViewModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("UpdateStudio",new { id = Model.Id }, new AjaxOptions {
+    UpdateTargetId = "studios",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    <tr>
+        <td>
+            @Html.TextBoxFor(m => m.Name)
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Address)
+        </td>
+        <td>
+            <input type="submit" value="Save" class="btn btn-primary"  />
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+        </td>
+    </tr>
+}

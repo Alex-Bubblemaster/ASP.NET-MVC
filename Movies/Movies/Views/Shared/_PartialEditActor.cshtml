@@ -1,0 +1,33 @@
+﻿@model Movies.Models.ActorViewModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("UpdateActor", new { id = Model.Id }, new AjaxOptions
+{
+    UpdateTargetId = "actors",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    <tr>
+        <td>
+            @Html.TextBoxFor(m => m.FirstName)
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.LastName)
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.DOB)
+        </td>
+        <td>
+            @Html.Label("Female")
+            @Html.RadioButtonFor(m => m.IsFemale, true, new { @checked = Model.IsFemale })
+            @Html.Label("Male")
+            @Html.RadioButtonFor(m => m.IsFemale, false, new { @checked = Model.IsFemale })
+        </td>
+        <td>
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+        </td>
+    </tr>
+}

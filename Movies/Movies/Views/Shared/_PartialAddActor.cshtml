@@ -1,0 +1,46 @@
+﻿@model Movies.Models.ActorViewModel
+@{
+    ViewBag.Title = "_PartialAddActor";
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="row">
+            @Html.LabelFor(m => m.FirstName)
+            <div class="input-field">
+                @Html.EditorFor(m => m.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.LastName)
+            <div class="input-field">
+                @Html.EditorFor(m => m.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.DOB)
+            <div class="input-field">
+                @Html.EditorFor(m => m.DOB)
+                @Html.ValidationMessageFor(model => model.DOB)
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+                @Html.Label("Female")
+                @Html.RadioButtonFor(m => m.IsFemale, true, new { @checked = true })
+                @Html.Label("Male")
+                @Html.RadioButtonFor(m => m.IsFemale, false)
+        </div>
+    </div>
+    <br/>
+    <div class="center">
+        <input type="submit" value="Create" class="btn" />
+    </div>
+}

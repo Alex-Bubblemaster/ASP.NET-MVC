@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron text-center">
+    <h1>Movies Database </h1>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-4">
+        <h2>Movies</h2>
+        <p>
+            @Ajax.ActionLink("Add Movie", "AddMovie", "Home", null,
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "add-movie",
+        HttpMethod = "GET"
+    }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+        </p>
+        <p id="add-movie"></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Actors</h2>
+        <p>
+            @Ajax.ActionLink("Add Actor", "AddActor", "Home", null,
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "add-actor",
+        HttpMethod = "GET"
+    }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cancel", "Index",null, new { @class = "btn btn-warning"})
+        </p>
+        <p id="add-actor"></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Studios</h2>
+        <p>
+            @Ajax.ActionLink("Add Studio", "AddStudio", "Home", null,
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "add-studio",
+        HttpMethod = "GET"
+    }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+        </p>
+        <p id="add-studio"></p>
+    </div>
+</div>

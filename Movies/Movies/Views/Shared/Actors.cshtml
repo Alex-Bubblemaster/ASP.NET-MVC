@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Movies.Models.ActorViewModel>
+@{
+    ViewBag.Title = "Actors";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+<table id="actors" class="table table-striped">
+    <tr>
+        <th>
+            Last Name
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Age
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Edit/Delete
+        </th>
+    </tr>
+    @foreach (var actor in Model)
+    {
+        <tr id=@actor.Id>
+            <td>@actor.FirstName</td>
+            <td> @actor.LastName</td>
+            <td>@(DateTime.Now.Year - actor.DOB.Year)</td>
+            <td>@(actor.IsFemale ? "Female" : "Male")</td>
+            <td>
+                @Ajax.ActionLink("Edit", "EditActor",
+               new
+               {
+                   firstName = actor.FirstName,
+                   lastName = actor.LastName,
+                   dob = actor.DOB,
+                   gender = actor.IsFemale,
+                   id = actor.Id
+               },
+            new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.ReplaceWith,
+                HttpMethod = "POST",
+                UpdateTargetId = actor.Id.ToString()
+            }, new { @class = "btn btn-warning" })
+
+                @Ajax.ActionLink("Delete", "DeleteActor", new { id = actor.Id },
+            new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.ReplaceWith,
+                HttpMethod = "DELETE",
+                UpdateTargetId = "actors",
+                Confirm = "Малко коте, сигурно ли си?"
+            }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Movies.Models.MovieViewModel>
+@{
+    ViewBag.Title = "Movies";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+
+<table id="movies" class="table table-striped">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Director
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            Edit/Delete
+        </th>
+    </tr>
+    @foreach (var movie in Model)
+    {
+        <tr id=@movie.Id>
+            <td>@movie.Title</td>
+            <td> @movie.Director</td>
+            <td>@movie.Year</td>
+            <td>
+                @Ajax.ActionLink("Edit", "EditMovie",
+               new
+               {
+                   title = movie.Title,
+                   director = movie.Director,
+                   year = movie.Year,
+                   id = movie.Id
+               },
+            new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.ReplaceWith,
+                HttpMethod = "POST",
+                UpdateTargetId = movie.Id.ToString()
+            }, new { @class = "btn btn-warning" })
+
+                @Ajax.ActionLink("Delete", "DeleteMovie", new { id = movie.Id },
+            new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.ReplaceWith,
+                HttpMethod = "DELETE",
+                UpdateTargetId = "movies",
+                Confirm = "Малко коте, сигурно ли си?"
+            }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

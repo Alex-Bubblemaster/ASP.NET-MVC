@@ -1,0 +1,32 @@
+﻿@model Movies.Models.StudioViewModel
+@{
+    ViewBag.Title = "_PartialAddStudio";
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="row">
+            @Html.LabelFor(m => m.Name)
+            <div class="input-field">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Address)
+            <div class="input-field">
+                @Html.EditorFor(m => m.Address)
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+        <br/>
+        <div class="center">
+            <input type="submit" value="Add Studio" class="btn" />
+        </div>
+    </div>
+}
