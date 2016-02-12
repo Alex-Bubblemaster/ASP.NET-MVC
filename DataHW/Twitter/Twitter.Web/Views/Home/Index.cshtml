@@ -1,0 +1,104 @@
+﻿@model ICollection<Twitter.Models.Tweet>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center text-info">Latest Tweets</h1>
+</div>
+@if (this.User.Identity.IsAuthenticated)
+            {
+    <div>
+            @Ajax.ActionLink("Create", "Create", "Tweet", null , new AjaxOptions() {
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "createPartial",
+           HttpMethod = "GET"
+       } ,new { @class = "btn btn-primary", id="create"})
+        <span>
+            @using (Ajax.BeginForm("Search", null,
+                new AjaxOptions
+                {
+                    UpdateTargetId = "tweets",
+                    InsertionMode = InsertionMode.ReplaceWith,
+                    HttpMethod = "POST"
+                }, new { id = "searchForm" }))
+            {
+                <input type="text" name="query" />
+                <input type="submit" />
+            }
+        </span>
+    </div>
+    <div id="createPartial"></div>
+    <br />
+}
+<table id="tweets" class="table table-striped">
+    <tr>
+        <th>
+            Author
+        </th>
+        <th>
+            Created On
+        </th>
+        <th>
+            Content
+        </th>
+        <th>
+            Likes
+        </th>
+        <th>
+            Tags
+        </th>
+    </tr>
+    @foreach (var tweet in Model)
+    {
+        <tr>
+            <td>@tweet.Author.UserName</td>
+            <td> @(DateTime.Now - tweet.CreatedOn)</td>
+            <td>@tweet.Content</td>
+            <td><div id=@tweet.Id class="heart">@tweet.Likes.ToString()</div></td>
+            <td>@foreach (var tag in tweet.Tags) {
+                <div>@tag.Name</div>
+            }</td>
+        </tr>
+    }
+</table>
+@section homeScript{
+    <script>
+
+        $(".heart").on("click", function (ev) {
+            var tweetId = ev.target.id;
+            $.ajax({
+                url: '/Tweet/Like/' + tweetId,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                error: function (xhr) {
+                    console.log("err" + xhr.statusText);
+                },
+                success: function (result) {
+                    var div = $("#" + tweetId);
+                    var count = parseInt(div.html()) + 1;
+                    div.html(count);
+                },
+                async: true
+            })
+        });
+
+        $("#create").on("click", function () {
+            $.ajax({
+                url: '/Tweet/Create',
+                type: 'GET',
+                contentType: 'text/html;',
+                error: function (xhr) {
+                    console.log("err" + xhr.statusText);
+                },
+                success: function (result) {
+                    
+                    var div = $("#createPartial");
+                    div.html(result);
+                },
+                async: true
+            })
+        })
+
+</script>
+    }

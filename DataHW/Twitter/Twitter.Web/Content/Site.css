@@ -1,0 +1,78 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*.heart {
+    width: 58px;
+    height: 50px;
+    background: #fff url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background-size: auto 55px;
+    -webkit-animation: fave-heart 1s steps(28);
+    animation: fave-heart 1s steps(28);
+}
+.fave {
+    width: 65px;
+    height: 50px;
+    background: #fff url(https://cssanimation.rocks/images/posts/steps/twitter_fave.png) no-repeat;
+    background-position: 0 2px;
+    cursor: pointer;
+    -webkit-animation: fave 1s steps(55);
+    animation: fave 1s steps(55);
+}*/
+.heart {
+    width: 80px;
+    height: 80px;
+    margin-top: 23px;
+    margin-bottom: -40px;
+    margin-left: 10px;
+    position: relative;
+    transform: translate(-50%, -50%);
+    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    animation: fave-heart 1s steps(28);
+}
+
+    .heart:hover {
+        background-position: -2800px 0;
+        transition: background 1s steps(28);
+    }
+
+@keyframes fave-heart {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -2800px 0;
+    }
+}
+
+#Content {
+    height: 100px;
+}
+
+#searchForm {
+    float: right;
+}
