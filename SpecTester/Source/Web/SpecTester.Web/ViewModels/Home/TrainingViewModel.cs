@@ -1,18 +1,24 @@
 ﻿namespace SpecTester.Web.ViewModels.Home
 {
+    using System;
     using System.Collections.Generic;
+    using AutoMapper;
     using Common;
     using Data.Models;
     using Infrastructure.Mapping;
     using Services.Web;
 
-    public class TrainingViewModel : IMapFrom<TrainingSession>
+    public class TrainingViewModel : IMapFrom<TrainingSession>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public IEnumerable<DishViewModel> Dishes { get; set; }
+        public IEnumerable<DishNameViewModel> Dishes { get; set; }
+
+        public int Users { get; set; }
+
+        public int TotalScore { get; set; }
 
         public string Url
         {
@@ -21,6 +27,12 @@
                 IIdentifierProvider identifier = new IdentifierProvider();
                 return $"/Training/{identifier.EncodeId(this.Id)}";
             }
+        }
+
+        public void CreateMappings(IMapperConfiguration configuration)
+        {
+            configuration.CreateMap<TrainingSession, TrainingViewModel>()
+                .ForMember(x => x.Users, opt => opt.MapFrom(x => x.Users.Count));
         }
     }
 }

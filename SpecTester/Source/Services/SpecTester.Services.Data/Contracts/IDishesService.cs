@@ -16,7 +16,9 @@
 
         IQueryable<Dish> GetRandomDishes(int count);
 
-        IQueryable<Dish> GetAll();
+        IQueryable<Dish> GetAllPaging(int skip = 1, int take = 10);
+
+        IQueryable<Dish> All();
 
         void RemoveProductFromDish(int dishId, Product product);
 

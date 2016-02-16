@@ -6,7 +6,9 @@
 
     public interface IProductsService
     {
-        IQueryable<Product> GetAll();
+        IQueryable<Product> GetAllPaging(int skip = 1, int take = 10);
+
+        IQueryable<Product> All();
 
         IQueryable<Product> GetByCookingMethod(CookingMethod cookingMethod);
     }

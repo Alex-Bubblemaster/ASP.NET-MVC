@@ -1,7 +1,6 @@
 ﻿namespace SpecTester.Web.Areas.Administration.Controllers
 {
     using System;
-    using System.Data.Entity;
     using System.Linq;
     using System.Web.Mvc;
     using Data.Models;
@@ -26,7 +25,7 @@
         // GET: Administration/Dish
         public ActionResult Index()
         {
-            var dishes = this.dishes.GetAll().To<DishViewModel>().ToList();
+            var dishes = this.dishes.All().To<DishViewModel>().ToList();
             return this.View(dishes);
         }
 
@@ -47,8 +46,8 @@
         public ActionResult Create()
         {
             var plates = Enum.GetValues(typeof(PlateShape)).Cast<int>().ToList();
-            var products = this.products.GetAll().To<ProductViewModel>().ToList();
-            var cookingMethods = Enum.GetValues(typeof(PlateShape)).Cast<int>().ToList();
+            var products = this.products.All().To<ProductViewModel>().ToList();
+            var cookingMethods = Enum.GetValues(typeof(CookingMethod)).Cast<int>().ToList();
 
             var model = new CreateDishViewModel()
             {

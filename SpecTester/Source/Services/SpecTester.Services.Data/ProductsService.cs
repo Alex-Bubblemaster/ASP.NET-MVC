@@ -35,9 +35,23 @@
             return products;
         }
 
-        public IQueryable<Product> GetAll()
+        public IQueryable<Product> GetAllPaging(int skip = 1, int take = 10)
         {
-            var products = this.products.All();
+            var products = this.products
+                .All()
+                .OrderBy(p => p.Name)
+                .Skip(skip * take)
+                .Take(take);
+
+            return products;
+        }
+
+        public IQueryable<Product> All()
+        {
+            var products = this.products
+                .All()
+                .OrderBy(p => p.Name);
+
             return products;
         }
     }

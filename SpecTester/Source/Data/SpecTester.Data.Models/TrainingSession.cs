@@ -25,6 +25,7 @@
 
         public DateTime? CompletedIn { get; set; }
 
+        [Required]
         public string AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]

@@ -17,9 +17,24 @@
             this.trainings = trainings;
         }
 
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(int? page)
         {
-            var trainingSessions = this.trainings.GetLastTen().To<TrainingViewModel>().ToList();
+            int toSkip = 0;
+            int toTake = 5;
+
+            if (page != null)
+            {
+                toSkip = int.Parse(page.ToString());
+            }
+
+            var trainingSessions = this.trainings
+                .GetAllWithPaging(toSkip, toTake)
+                .To<TrainingViewModel>()
+                .ToList();
+
+            this.ViewBag.Pages = trainingSessions.Count / toTake;
+            this.ViewBag.CurrentPage = toSkip;
 
             return this.View(trainingSessions);
         }

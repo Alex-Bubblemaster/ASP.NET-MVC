@@ -12,6 +12,8 @@
             this.CookingMethods = new List<int>();
             this.Products = new List<ProductViewModel>();
             this.PlateShapes = new List<int>();
+            this.SelectedCookingMethods = new List<int>();
+            this.SelectedProducts = new List<int>();
         }
 
         public string Name { get; set; }
@@ -22,11 +24,11 @@
 
         public IEnumerable<int> PlateShapes { get; set; }
 
-        public string SelectedProduct { get; set; }
+        public IEnumerable<int> SelectedProducts { get; set; }
 
         public IEnumerable<ProductViewModel> Products { get; set; }
 
-        public string SelectedCookingMethod { get; set; }
+        public IEnumerable<int> SelectedCookingMethods { get; set; }
 
         public IEnumerable<int> CookingMethods { get; set; }
     }

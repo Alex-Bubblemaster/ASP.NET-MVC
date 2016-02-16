@@ -16,6 +16,8 @@
 
         IQueryable<TrainingSession> All();
 
+        IQueryable<TrainingSession> GetAllWithPaging(int skip, int take);
+
         TrainingSession GetById(int id);
 
         TrainingSession Edit(int id, string name, int totalScore, bool isDeleted);

@@ -8,5 +8,7 @@
         User GetById(int id);
 
         IQueryable<User> GetTopTen();
+
+        IQueryable<User> GetAll(int skip = 1, int take = 10);
     }
 }

@@ -4,12 +4,54 @@
 }
 <h1>Training</h1>
 <div class="row">
-    @foreach (var training in Model)
-    {
-        <div class="col-md-4">
-            <a href="@training.Url">
-                @training.Name
-            </a>
-        </div>
-    }
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Dishes</th>
+            <th>Participants</th>
+            <th>Total Score</th>
+            <th>Join</th>
+        </tr>
+        @foreach (var training in Model)
+        {
+            <tr>
+                <td>@training.Id</td>
+                <td><a href="@training.Url">@training.Name</a></td>
+                <td>
+                    @foreach(var dish in training.Dishes)
+                    {
+                        <div>@dish.Name</div>
+                    }
+                </td>
+                <td>@training.Users</td>
+                <td>@training.TotalScore</td>
+                <td><input type="submit" class="btn btn-warning" value="Join"></td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="text-center">
+    <ul class="pagination pagination-lg">
+        @{
+            var pages = int.Parse(ViewBag.Pages.ToString());
+            var current = int.Parse(ViewBag.CurrentPage.ToString());
+
+            for (int i = 0; i < pages; i++)
+            {
+                if (current == i)
+                {
+                    <li class="active">
+                        <a href="?page=@i">@(i + 1)</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="?page=@i">@(i + 1)</a>
+                    </li>
+                }
+            }
+        }
+    </ul>
 </div>

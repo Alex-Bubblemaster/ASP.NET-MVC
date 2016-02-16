@@ -1,6 +1,5 @@
 ﻿namespace SpecTester.Services.Data
 {
-    using System;
     using System.Linq;
     using Contracts;
     using SpecTester.Data.Common;
@@ -24,8 +23,23 @@
 
         public IQueryable<User> GetTopTen()
         {
-            // throw new NotImplementedException();
-            return null;
+            var topTen = this.users
+                .All()
+                .OrderByDescending(x => x.TotalScore)
+                .Take(10);
+
+            return topTen;
+        }
+
+        public IQueryable<User> GetAll(int skip = 1, int take = 10)
+        {
+            var users = this.users
+                .All()
+                .OrderBy(x => x.Email)
+                .Skip(skip * take)
+                .Take(take);
+
+            return users;
         }
     }
 }

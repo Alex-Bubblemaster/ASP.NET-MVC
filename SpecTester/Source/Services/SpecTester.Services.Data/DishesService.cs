@@ -58,9 +58,20 @@
             return dish;
         }
 
-        public IQueryable<Dish> GetAll()
+        public IQueryable<Dish> GetAllPaging(int skip = 1, int take = 10)
         {
-            return this.dishes.All().OrderBy(x => x.Name);
+            return this.dishes
+                .All()
+                .OrderBy(x => x.Name)
+                .Skip(skip * take)
+                .Take(take);
+        }
+
+        public IQueryable<Dish> All()
+        {
+            return this.dishes
+                .All()
+                .OrderBy(x => x.Name);
         }
 
         public Dish AddProducts(int id, List<Product> products)

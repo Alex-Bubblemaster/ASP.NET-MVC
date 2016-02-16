@@ -14,7 +14,7 @@
 
         public string Name { get; set; }
 
-        public IEnumerable<DishNameViewModel> Dishes { get; set; }
+        public IEnumerable<DishViewModel> Dishes { get; set; }
 
         [DisplayName("Total Score")]
         public int TotalScore { get; set; }
