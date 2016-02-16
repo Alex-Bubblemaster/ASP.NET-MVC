@@ -1,0 +1,97 @@
+﻿@model SpecTester.Web.ViewModels.Admin.TrainingAdminViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TrainingSession</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalScore, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalScore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalScore, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsDeleted)
+                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Dishes.Count() != 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>Dish Name</th>
+                        <th>Products</th>
+                        <th>Has Sauce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Dishes)
+                    {
+                        <tr>
+                            <td>
+                                @product.Name
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        else
+        {
+            <h2 class="text-danger">No Dishes have been added to this training yet!</h2>
+        }
+        <div id="add-dish"></div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Ajax.ActionLink("Add Dish", "Create", "Dish", null,
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "add-dish",
+        HttpMethod = "GET"
+    }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

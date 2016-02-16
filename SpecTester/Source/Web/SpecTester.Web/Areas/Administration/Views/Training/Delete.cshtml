@@ -1,0 +1,88 @@
+﻿@model SpecTester.Web.ViewModels.Admin.TrainingAdminViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TrainingSession</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedIn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedOn)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

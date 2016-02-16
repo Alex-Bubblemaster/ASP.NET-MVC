@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SpecTester.Web.ViewModels.Home.TrainingViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h1>Training</h1>
+<div class="row">
+    @foreach (var training in Model)
+    {
+        <div class="col-md-4">
+            <a href="@training.Url">
+                @training.Name
+            </a>
+        </div>
+    }
+</div>
