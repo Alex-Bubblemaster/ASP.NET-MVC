@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SpecTester.Common\SpecTester.Common.csproj">
+      <Project>{701f322f-aa01-4ddc-90b6-6935981c1e73}</Project>
+      <Name>SpecTester.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpecTester.Data.Common\SpecTester.Data.Common.csproj">
       <Project>{edfe3c57-ef5b-4636-9ecc-d0baca6b6379}</Project>
       <Name>SpecTester.Data.Common</Name>

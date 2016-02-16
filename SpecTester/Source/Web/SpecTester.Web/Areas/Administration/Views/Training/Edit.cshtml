@@ -47,19 +47,26 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>
-                        </th>
                         <th>Dish Name</th>
                         <th>Products</th>
                         <th>Has Sauce</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var product in Model.Dishes)
+                    @foreach (var dish in Model.Dishes)
                     {
                         <tr>
                             <td>
-                                @product.Name
+                                @dish.Name
+                            </td>
+                            <td>
+                                @foreach (var product in dish.Products)
+                                {
+                                    <div>@product.Name</div>
+                                }
+                            </td>
+                            <td>
+                                @(dish.HasSauce?"Yes":"No")
                             </td>
                         </tr>
                     }

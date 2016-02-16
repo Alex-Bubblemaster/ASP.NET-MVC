@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using Common;
     using Data.Common.Models;
+    using SpecTester.Common;
 
     public class Dish : BaseModel<int>
     {
@@ -14,8 +14,9 @@
             this.Trainings = new HashSet<TrainingSession>();
         }
 
-        [MaxLength(100)]
         [Required]
+        [MinLength(GlobalConstants.MinTextLength)]
+        [MaxLength(GlobalConstants.MaxDishNameLength)]
         public string Name { get; set; }
 
         public PlateShape Plate { get; set; }

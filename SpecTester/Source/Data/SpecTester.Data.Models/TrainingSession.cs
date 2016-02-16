@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Data.Common.Models;
+    using SpecTester.Common;
 
     public class TrainingSession : BaseModel<int>
     {
@@ -14,10 +15,12 @@
             this.Users = new HashSet<User>();
         }
 
-        [MaxLength(100)]
         [Required]
+        [MinLength(GlobalConstants.MinTextLength)]
+        [MaxLength(GlobalConstants.MaxTrainingNameLength)]
         public string Name { get; set; }
 
+        [Required]
         public int TotalScore { get; set; }
 
         public DateTime? CompletedIn { get; set; }

@@ -14,8 +14,6 @@
 
         public string Name { get; set; }
 
-        public int Weight { get; set; }
-
         //public IEnumerable<int> CookingMethods { get; set; }
 
         //public void CreateMappings(IMapperConfiguration configuration)

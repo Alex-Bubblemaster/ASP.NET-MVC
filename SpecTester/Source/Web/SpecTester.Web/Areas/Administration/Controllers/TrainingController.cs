@@ -30,9 +30,9 @@
         }
 
         // GET: Administration/Training/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            var trainingSession = this.trainings.GetById(id);
+            var trainingSession = this.trainings.GetById((int)id);
             if (trainingSession == null)
             {
                 return this.HttpNotFound();
@@ -65,9 +65,9 @@
         }
 
         // GET: Administration/Training/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var trainingSession = this.trainings.GetById(id);
+            var trainingSession = this.trainings.GetById((int)id);
             if (trainingSession == null)
             {
                 return this.HttpNotFound();
@@ -93,9 +93,9 @@
         }
 
         // GET: Administration/Training/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var trainingSession = this.trainings.GetById(id);
+            var trainingSession = this.trainings.GetById((int)id);
             if (trainingSession == null)
             {
                 return this.HttpNotFound();
@@ -109,9 +109,9 @@
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            this.trainings.Delete(id);
+            this.trainings.Delete((int)id);
             return this.RedirectToAction("Index");
         }
     }

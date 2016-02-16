@@ -14,6 +14,5 @@
         public PlateShape Plate { get; set; }
 
         public bool HasSauce { get; set; }
-
     }
 }
