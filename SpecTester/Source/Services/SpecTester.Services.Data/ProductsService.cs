@@ -30,7 +30,7 @@
         {
             var products = this.products
                 .All()
-                .Where(p => p.CookingMethods.Contains(cookingMethod));
+                .Where(p => p.CookingMethods == cookingMethod);
 
             return products;
         }
@@ -53,6 +53,11 @@
                 .OrderBy(p => p.Name);
 
             return products;
+        }
+
+        public int GetCount()
+        {
+            return this.products.All().Count();
         }
     }
 }

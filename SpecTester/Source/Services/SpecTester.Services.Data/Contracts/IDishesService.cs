@@ -23,5 +23,7 @@
         void RemoveProductFromDish(int dishId, Product product);
 
         void HasSauce(int id, bool hasSauce);
+
+        int GetCount();
     }
 }

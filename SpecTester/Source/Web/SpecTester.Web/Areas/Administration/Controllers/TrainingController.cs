@@ -5,10 +5,11 @@
     using Common;
     using Data.Models;
     using Infrastructure.Mapping;
-    using Microsoft.AspNet.Identity;
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
     using Services.Data.Contracts;
+    using ViewModels;
     using Web.Controllers;
-    using Web.ViewModels.Admin;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class TrainingController : BaseController
@@ -25,94 +26,54 @@
         // GET: Administration/Training
         public ActionResult Index()
         {
-            var trainingSessions = this.trainings.All().To<TrainingAdminViewModel>().ToList();
-            return this.View(trainingSessions);
-        }
-
-        // GET: Administration/Training/Details/5
-        public ActionResult Details(int? id)
-        {
-            var trainingSession = this.trainings.GetById((int)id);
-            if (trainingSession == null)
-            {
-                return this.HttpNotFound();
-            }
-
-            var viewModel = this.Mapper.Map<TrainingAdminViewModel>(trainingSession);
-            return this.View(trainingSession);
-        }
-
-        // GET: Administration/Training/Create
-        public ActionResult Create()
-        {
             return this.View();
         }
 
-        // POST: Administration/Training/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,TotalScore")] TrainingSession trainingSession)
+        public ActionResult ReadTraining([DataSourceRequest]DataSourceRequest request)
+        {
+            var trainingSessions = this.trainings
+                .All()
+                .To<TrainingAdminViewModel>()
+                .ToList();
+
+            return this.Json(trainingSessions.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CreateTraining([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
         {
             if (this.ModelState.IsValid)
             {
-                trainingSession.AuthorId = this.HttpContext.User.Identity.GetUserId();
-                this.trainings.Add(trainingSession);
-                return this.RedirectToAction("Index");
+                var training = this.Mapper.Map<TrainingSession>(model);
+                this.trainings.Add(training);
+                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             }
 
-            var viewModel = this.Mapper.Map<TrainingAdminViewModel>(trainingSession);
-            return this.View(viewModel);
+            return null;
         }
 
-        // GET: Administration/Training/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            var trainingSession = this.trainings.GetById((int)id);
-            if (trainingSession == null)
-            {
-                return this.HttpNotFound();
-            }
-
-            var viewModel = this.Mapper.Map<TrainingAdminViewModel>(trainingSession);
-            return this.View(viewModel);
-        }
-
-        // POST: Administration/Training/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,TotalScore,IsDeleted")] TrainingSession session)
+        public ActionResult UpdateTraining([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
         {
             if (this.ModelState.IsValid)
             {
-                this.trainings.Edit(session.Id, session.Name, session.TotalScore, session.IsDeleted);
-                return this.RedirectToAction("Index");
+                var training = this.trainings.GetById(model.Id);
+                this.Mapper.Map(model, training);
+                this.trainings.Edit(training.Id, training.Name, training.Score, training.IsDeleted);
+                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             }
 
-            var viewModel = this.Mapper.Map<TrainingAdminViewModel>(session);
-            return this.View(viewModel);
+            return null;
         }
 
-        // GET: Administration/Training/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteGift([DataSourceRequest] DataSourceRequest request, TrainingAdminViewModel model)
         {
-            var trainingSession = this.trainings.GetById((int)id);
-            if (trainingSession == null)
+            if (model != null)
             {
-                return this.HttpNotFound();
+                this.trainings.Delete(model.Id);
+
+                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             }
 
-            var viewModel = this.Mapper.Map<TrainingAdminViewModel>(trainingSession);
-            return this.View(viewModel);
-        }
-
-        // POST: Administration/Training/Delete/5
-        [HttpPost]
-        [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
-        {
-            this.trainings.Delete((int)id);
-            return this.RedirectToAction("Index");
+            return null;
         }
     }
 }

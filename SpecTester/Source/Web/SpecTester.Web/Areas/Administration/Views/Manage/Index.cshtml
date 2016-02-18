@@ -1,0 +1,42 @@
+﻿@model SpecTester.Web.Areas.Administration.ViewModels.AdminManageViewModel
+<div class="jumbotron text-center">
+    <h1> Welcome to the Spectester Administration! </h1>
+    <hr />
+</div>
+<div class="row">
+    <a href="/Administration/Product">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="~/Content/images/Products.png" alt="Products">
+                <div class="caption text-center">
+                    <h2>Products</h2>
+                    <h3>@Model.Products</h3>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="/Administration/Dish">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="~/Content/images/dishes.png" alt="Dishes">
+                <div class="caption text-center">
+                    <h2>Dishes</h2>
+                    <h3>@Model.Dishes</h3>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="/Administration/Training">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="~/Content/images/Training2.png" alt="Training">
+                <div class="caption text-center">
+                    <h2>Trainings</h2>
+                    <h3>@Model.Trainings</h3>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+

@@ -1,10 +1,13 @@
 ﻿namespace SpecTester.Data.Models.Common
 {
+    using System;
+
+    [Flags]
     public enum PlateShape
     {
-        Round = 0,
-        Square = 1,
-        Rectangular = 2,
-        Jug = 3
+        Round = 1,
+        Square = 1 << 1,
+        Rectangular = 1 << 2,
+        Jug = 1 << 3,
     }
 }

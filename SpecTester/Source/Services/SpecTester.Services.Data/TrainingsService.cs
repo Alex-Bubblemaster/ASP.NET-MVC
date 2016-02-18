@@ -1,5 +1,6 @@
 ﻿namespace SpecTester.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Contracts;
@@ -88,7 +89,7 @@
             }
 
             sessionToEdit.Name = name;
-            sessionToEdit.TotalScore = totalScore;
+            sessionToEdit.Score = totalScore;
             sessionToEdit.IsDeleted = isDeleted;
             this.trainings.Save();
 
@@ -100,6 +101,11 @@
             var session = this.trainings.GetById(id);
             this.trainings.Delete(session);
             this.trainings.Save();
+        }
+
+        public int GetCount()
+        {
+            return this.trainings.All().Count();
         }
     }
 }

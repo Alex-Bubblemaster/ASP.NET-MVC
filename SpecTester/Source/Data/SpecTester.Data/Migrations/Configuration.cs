@@ -55,7 +55,7 @@
                 var training = new TrainingSession()
                 {
                     Name = "Training " + (i + 1),
-                    TotalScore = 100 + (i * 10),
+                    Score = 100 + (i * 10),
                     Dishes = new List<Dish>()
                     {
                         new Dish()
@@ -65,11 +65,31 @@
                             HasSauce = i % 2 == 0,
                             Products = new List<Product>()
                             {
-                                new Product() { Name = "Sausages" },
-                                new Product() { Name = "Potatoes" },
-                                new Product() { Name = "Tomatoes" },
-                                new Product() { Name = "Mushrooms" },
-                                new Product() { Name = "Beans" }
+                                new Product()
+                                {
+                                    Name = "Sausages" + i,
+                                    CookingMethods = CookingMethod.DeepFry & CookingMethod.ShallowFry
+                                },
+                                new Product()
+                                {
+                                    Name = "Potatoes" + i,
+                                    CookingMethods = CookingMethod.DeepFry & CookingMethod.Boil
+                                },
+                                new Product()
+                                {
+                                    Name = "Tomatoes" + i,
+                                    CookingMethods = CookingMethod.Grill & CookingMethod.ReadyToEat
+                                },
+                                new Product()
+                                {
+                                    Name = "Mushrooms" + i,
+                                    CookingMethods = CookingMethod.ShallowFry
+                                },
+                                new Product()
+                                {
+                                    Name = "Beans" + i,
+                                    CookingMethods = CookingMethod.ReadyToEat
+                                }
                             }
                         },
                         new Dish()
@@ -79,11 +99,31 @@
                             HasSauce = false,
                             Products = new List<Product>()
                             {
-                                new Product() { Name = "French fries" },
-                                new Product() { Name = "Pork chop" },
-                                new Product() { Name = "Eggs" },
-                                new Product() { Name = "Pineapple" },
-                                new Product() { Name = "Peas" }
+                                new Product()
+                                {
+                                    Name = "French fries" + i,
+                                    CookingMethods = CookingMethod.DeepFry
+                                },
+                                new Product()
+                                {
+                                    Name = "Pork chop" + i,
+                                    CookingMethods = CookingMethod.Grill
+                                },
+                                new Product()
+                                {
+                                    Name = "Eggs" + i,
+                                    CookingMethods = CookingMethod.ShallowFry
+                                },
+                                new Product()
+                                {
+                                    Name = "Pineapple" + i,
+                                    CookingMethods = CookingMethod.Grill
+                                },
+                                new Product()
+                                {
+                                    Name = "Peas" + i,
+                                    CookingMethods = CookingMethod.Boil
+                                }
                             }
                         },
                         new Dish()
@@ -93,11 +133,31 @@
                             HasSauce = true,
                             Products = new List<Product>()
                             {
-                                new Product() { Name = "Steak " + i },
-                                new Product() { Name = "Pork " + i },
-                                new Product() { Name = "Sausage " + i },
-                                new Product() { Name = "Chicken Breast " + i },
-                                new Product() { Name = "Beef " + i },
+                                new Product()
+                                {
+                                    Name = "Steak " + i,
+                                CookingMethods = CookingMethod.Grill
+                                },
+                                new Product()
+                                {
+                                    Name = "Pork " + i,
+                                CookingMethods = CookingMethod.Grill
+                                },
+                                new Product()
+                                {
+                                    Name = "Sausage " + i,
+                                    CookingMethods = CookingMethod.ShallowFry
+                                },
+                                new Product()
+                                {
+                                    Name = "Chicken Breast " + i,
+                                    CookingMethods = CookingMethod.Roast
+                                },
+                                new Product()
+                                {
+                                    Name = "Beef " + i,
+                                    CookingMethods = CookingMethod.ShallowFry
+                                },
                             }
                         }
                     },

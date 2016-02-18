@@ -42,42 +42,7 @@
             </div>
         </div>
 
-        @if (Model.Dishes.Count() != 0)
-        {
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Dish Name</th>
-                        <th>Products</th>
-                        <th>Has Sauce</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var dish in Model.Dishes)
-                    {
-                        <tr>
-                            <td>
-                                @dish.Name
-                            </td>
-                            <td>
-                                @foreach (var product in dish.Products)
-                                {
-                                    <div>@product.Name</div>
-                                }
-                            </td>
-                            <td>
-                                @(dish.HasSauce?"Yes":"No")
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-
-        else
-        {
-            <h2 class="text-danger">No Dishes have been added to this training yet!</h2>
-        }
+        @Html.Partial("_DishesTableView", Model.Dishes )
         <div id="add-dish"></div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

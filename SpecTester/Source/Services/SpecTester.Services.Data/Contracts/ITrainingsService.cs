@@ -23,5 +23,7 @@
         TrainingSession Edit(int id, string name, int totalScore, bool isDeleted);
 
         void Delete(int id);
+
+        int GetCount();
     }
 }

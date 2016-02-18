@@ -10,6 +10,8 @@
 
         IQueryable<Product> All();
 
+        int GetCount();
+
         IQueryable<Product> GetByCookingMethod(CookingMethod cookingMethod);
     }
 }

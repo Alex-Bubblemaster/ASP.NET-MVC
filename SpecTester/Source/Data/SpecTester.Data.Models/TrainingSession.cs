@@ -21,7 +21,7 @@
         public string Name { get; set; }
 
         [Required]
-        public int TotalScore { get; set; }
+        public int Score { get; set; }
 
         public DateTime? CompletedIn { get; set; }
 

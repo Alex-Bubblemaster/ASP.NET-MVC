@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SpecTester</title>
+    @Styles.Render("~/Content/kendo-css")
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendo")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,7 +25,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Administration", "Index", "Training", new { area = "Administration" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Administration", "Index", "Manage", new { area = "Administration" }, new { @class = "navbar-brand" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -31,12 +34,10 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="text-center">
             <p>&copy; @DateTime.Now.Year - SpecTester</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

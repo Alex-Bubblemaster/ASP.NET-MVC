@@ -1,4 +1,4 @@
-﻿namespace SpecTester.Web.ViewModels.Admin
+﻿namespace SpecTester.Web.Areas.Administration.ViewModels
 {
     using Data.Models;
     using Infrastructure.Mapping;

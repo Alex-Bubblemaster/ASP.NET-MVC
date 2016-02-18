@@ -10,17 +10,17 @@
     {
         public Product()
         {
-            this.CookingMethods = new HashSet<CookingMethod>();
             this.Dishes = new HashSet<Dish>();
         }
+
+        public byte[] Image { get; set; }
 
         [Required]
         [MinLength(GlobalConstants.MinTextLength)]
         [MaxLength(GlobalConstants.MaxProductNameLength)]
         public string Name { get; set; }
 
-        // TODO: Add Image to DB as well
-        public virtual ICollection<CookingMethod> CookingMethods { get; set; }
+        public CookingMethod CookingMethods { get; set; }
 
         public virtual ICollection<Dish> Dishes { get; set; }
     }

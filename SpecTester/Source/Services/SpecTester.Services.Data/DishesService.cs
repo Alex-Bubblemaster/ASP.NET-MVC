@@ -99,5 +99,10 @@
             dish.HasSauce = hasSauce;
             this.dishes.Save();
         }
+
+        public int GetCount()
+        {
+            return this.dishes.All().Count();
+        }
     }
 }

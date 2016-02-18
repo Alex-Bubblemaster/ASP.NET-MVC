@@ -1,11 +1,8 @@
-﻿namespace SpecTester.Web.ViewModels.Admin
+﻿namespace SpecTester.Web.Areas.Administration.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using System.Web;
-    using Common;
+    using Areas.Administration.ViewModels;
     using Data.Models;
     using Infrastructure.Mapping;
 

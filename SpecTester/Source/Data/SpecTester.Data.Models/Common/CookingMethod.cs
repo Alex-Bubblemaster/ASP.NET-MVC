@@ -1,14 +1,16 @@
 ﻿namespace SpecTester.Data.Models.Common
 {
+    using System;
+
+    [Flags]
     public enum CookingMethod
     {
-        Boil = 0,
-        Steam = 1,
-        DeepFry = 2,
-        ShallowFry = 3,
-        Grill = 4,
-        Roast = 5,
-        PanFry = 6,
-        ReadyToEat = 7
+        Boil = 1,
+        Steam = 1 << 1,
+        DeepFry = 1 << 2,
+        ShallowFry = 1 << 3,
+        Grill = 1 << 4,
+        Roast = 1 << 5,
+        ReadyToEat = 1 << 6
     }
 }

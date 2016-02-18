@@ -1,23 +1,24 @@
-﻿namespace SpecTester.Web.ViewModels.Admin
+﻿namespace SpecTester.Web.Areas.Administration.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Web.Mvc;
     using AutoMapper;
-    using Common;
     using Data.Models;
     using Infrastructure.Mapping;
 
     public class TrainingAdminViewModel : IMapFrom<TrainingSession>, IHaveCustomMappings
     {
+        [HiddenInput]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public IEnumerable<DishViewModel> Dishes { get; set; }
 
-        [DisplayName("Total Score")]
-        public int TotalScore { get; set; }
+        [DisplayName("Score")]
+        public int Score { get; set; }
 
         [DisplayName("Completed In")]
         public DateTime? CompletedIn { get; set; }

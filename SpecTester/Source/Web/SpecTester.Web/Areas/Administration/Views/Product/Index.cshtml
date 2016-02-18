@@ -1,0 +1,29 @@
+﻿@using Kendo.Mvc.UI
+    @(Html.Kendo().Grid<SpecTester.Data.Models.Product>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.Name);
+          columns.Bound(c => c.CookingMethods);
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar =>
+      {
+          toolbar.Create();
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Pageable()
+      .Sortable(sortable =>
+      {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Id))
+          .Read(read => read.Action("Products_Read", "Product"))
+          .Create(create => create.Action("Products_Create", "Product"))
+          .Update(update => update.Action("Products_Update", "Product"))
+          .Destroy(destroy => destroy.Action("Products_Destroy", "Product"))
+      )
+    )
