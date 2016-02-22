@@ -20,7 +20,7 @@
 
         TrainingSession GetById(int id);
 
-        TrainingSession Edit(int id, string name, int totalScore, bool isDeleted);
+        void Save();
 
         void Delete(int id);
 

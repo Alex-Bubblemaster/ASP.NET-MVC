@@ -2,8 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
-    using Data.Common.Models;
+    using Common.Models;
     using SpecTester.Common;
 
     public class Dish : BaseModel<int>
@@ -18,8 +17,6 @@
         [MinLength(GlobalConstants.MinTextLength)]
         [MaxLength(GlobalConstants.MaxDishNameLength)]
         public string Name { get; set; }
-
-        public PlateShape Plate { get; set; }
 
         public bool HasSauce { get; set; }
 

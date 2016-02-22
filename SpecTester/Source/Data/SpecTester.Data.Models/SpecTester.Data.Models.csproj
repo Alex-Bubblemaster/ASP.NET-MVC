@@ -59,10 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\CookingMethod.cs" />
     <Compile Include="Dish.cs" />
     <Compile Include="Product.cs" />
-    <Compile Include="Common\PlateShape.cs" />
     <Compile Include="TrainingSession.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

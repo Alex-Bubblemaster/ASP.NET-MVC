@@ -1,29 +1,58 @@
-﻿@using Kendo.Mvc.UI
-    @(Html.Kendo().Grid<SpecTester.Data.Models.Product>()
-      .Name("grid")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.Name);
-          columns.Bound(c => c.CookingMethods);
-          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
-      })
-      .ToolBar(toolbar =>
-      {
-          toolbar.Create();
-      })
-      .Editable(editable => editable.Mode(GridEditMode.InLine))
-      .Pageable()
-      .Sortable(sortable =>
-      {
-          sortable.SortMode(GridSortMode.SingleColumn);
-      })
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Model(model => model.Id(p => p.Id))
-          .Read(read => read.Action("Products_Read", "Product"))
-          .Create(create => create.Action("Products_Create", "Product"))
-          .Update(update => update.Action("Products_Update", "Product"))
-          .Destroy(destroy => destroy.Action("Products_Destroy", "Product"))
-      )
+﻿@using SpecTester.Web.Areas.Administration.ViewModels
+<br />
+<div class="text-center">
+    <a href="#" id="getCreateProduct" class="btn btn-lg btn-primary">Create Product</a>
+    <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel Create</a>
+</div>
+<div id="add-product"></div>
+<br />
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().Grid<ProductViewModel>
+    ()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Name).HtmlAttributes(new { style = "text-align:center" });
+        columns.Bound(p => p.ImageUrl)
+        .ClientTemplate("<img src='" + Url.Content("~/Content/images/products/") + "#=ImageUrl#' alt='#=Name #' Title='#=Name #' height='100' width='100' />")
+        .Filterable(false)
+        .HtmlAttributes(new { style = "text-align:center" });
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250)
+        .HtmlAttributes(new { style = "text-align:center" });
+    })
+    .HtmlAttributes(new { style = "height: 700px;" })
+    .Pageable()
+    .Filterable()
+    .Scrollable()
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model =>
+    {
+        model.Id(p => p.Id);
+        model.Field(p => p.ImageUrl).Editable(false);
+    })
+    .Read(read => read.Action("Read", "Product"))
+    .Destroy(destroy => destroy.Action("Delete", "Product"))
+    .Update(update => update.Action("Update", "Product"))
+    .PageSize(20)
     )
+)
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cancel').hide();
+        })
+        $('#getCreateProduct').on('click', function loadPartialView(context) {
+            $('#cancel').show();
+            $('#add-product').show();
+            $('#add-product').load('Product/Create');
+        });
+
+        $('#cancel').on('click', function hideForm() {
+            $('#add-product').hide();
+            $('#cancel').hide();
+        });
+    </script>
+}

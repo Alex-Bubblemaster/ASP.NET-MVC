@@ -4,12 +4,10 @@
     using System.Linq;
     using System.Web.Mvc;
     using Data.Models;
-    using Data.Models.Common;
     using Infrastructure.Mapping;
     using Services.Data.Contracts;
     using ViewModels;
     using Web.Controllers;
-    using Web.ViewModels.Common;
 
     public class DishController : BaseController
     {
@@ -45,14 +43,10 @@
         // GET: Administration/Dish/Create
         public ActionResult Create()
         {
-            var plates = Enum.GetValues(typeof(PlateShape)).Cast<int>().ToList();
             var products = this.products.All().To<ProductViewModel>().ToList();
-            var cookingMethods = Enum.GetValues(typeof(CookingMethod)).Cast<int>().ToList();
 
             var model = new CreateDishViewModel()
             {
-                CookingMethods = cookingMethods,
-                PlateShapes = plates,
                 Products = products
             };
 

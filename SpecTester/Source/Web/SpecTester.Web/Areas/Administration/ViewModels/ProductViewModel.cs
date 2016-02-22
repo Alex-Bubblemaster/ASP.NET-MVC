@@ -1,7 +1,6 @@
-﻿namespace SpecTester.Web.ViewModels.Common
+﻿namespace SpecTester.Web.Areas.Administration.ViewModels
 {
     using Data.Models;
-    using Data.Models.Common;
     using Infrastructure.Mapping;
 
     public class ProductViewModel : IMapFrom<Product>
@@ -10,6 +9,7 @@
 
         public string Name { get; set; }
 
-        public CookingMethod CookingMethod { get; set; }
+        public string ImageUrl { get; set; }
+
     }
 }

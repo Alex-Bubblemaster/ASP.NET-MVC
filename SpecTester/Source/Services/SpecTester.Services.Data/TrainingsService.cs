@@ -1,6 +1,5 @@
 ﻿namespace SpecTester.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Contracts;
@@ -79,21 +78,9 @@
         }
 
         // TODO check is admin
-        public TrainingSession Edit(int id, string name, int totalScore, bool isDeleted)
+        public void Save()
         {
-            var sessionToEdit = this.trainings.GetById(id);
-
-            if (sessionToEdit == null)
-            {
-                return null;
-            }
-
-            sessionToEdit.Name = name;
-            sessionToEdit.Score = totalScore;
-            sessionToEdit.IsDeleted = isDeleted;
             this.trainings.Save();
-
-            return sessionToEdit;
         }
 
         public void Delete(int id)

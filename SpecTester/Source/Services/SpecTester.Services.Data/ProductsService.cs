@@ -5,7 +5,6 @@
     using Contracts;
     using SpecTester.Data.Common;
     using SpecTester.Data.Models;
-    using SpecTester.Data.Models.Common;
     using Web;
 
     public class ProductsService : IProductsService
@@ -24,15 +23,6 @@
             var intId = this.identifierProvider.DecodeId(id);
             var product = this.products.GetById(intId);
             return product;
-        }
-
-        public IQueryable<Product> GetByCookingMethod(CookingMethod cookingMethod)
-        {
-            var products = this.products
-                .All()
-                .Where(p => p.CookingMethods == cookingMethod);
-
-            return products;
         }
 
         public IQueryable<Product> GetAllPaging(int skip = 1, int take = 10)
@@ -58,6 +48,30 @@
         public int GetCount()
         {
             return this.products.All().Count();
+        }
+
+        public void Add(Product entity)
+        {
+            this.products.Add(entity);
+            this.products.Save();
+        }
+
+        public void Delete(int id)
+        {
+            var session = this.products.GetById(id);
+            this.products.Delete(session);
+            this.products.Save();
+        }
+
+        public Product GetById(int id)
+        {
+            var product = this.products.GetById(id);
+            return product;
+        }
+
+        public void Save()
+        {
+            this.products.Save();
         }
     }
 }

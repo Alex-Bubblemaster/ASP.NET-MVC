@@ -29,7 +29,7 @@
             return this.View();
         }
 
-        public ActionResult ReadTraining([DataSourceRequest]DataSourceRequest request)
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var trainingSessions = this.trainings
                 .All()
@@ -39,7 +39,8 @@
             return this.Json(trainingSessions.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CreateTraining([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
+        [HttpPost]
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -51,20 +52,25 @@
             return null;
         }
 
-        public ActionResult UpdateTraining([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, EditTrainingAdminRequestModel model)
         {
             if (this.ModelState.IsValid)
             {
                 var training = this.trainings.GetById(model.Id);
-                this.Mapper.Map(model, training);
-                this.trainings.Edit(training.Id, training.Name, training.Score, training.IsDeleted);
-                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+                training.Name = model.Name;
+                training.IsDeleted = model.IsDeleted;
+                training.Name = model.Name;
+                training.Score = model.Score;
+                this.trainings.Save();
+                var responseModel = this.Mapper.Map<TrainingAdminViewModel>(training);
+                return this.Json(new[] { responseModel }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             }
 
             return null;
         }
 
-        public ActionResult DeleteGift([DataSourceRequest] DataSourceRequest request, TrainingAdminViewModel model)
+        public ActionResult Delete([DataSourceRequest] DataSourceRequest request, TrainingAdminViewModel model)
         {
             if (model != null)
             {

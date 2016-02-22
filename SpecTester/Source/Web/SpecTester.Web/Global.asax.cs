@@ -9,7 +9,6 @@
 
     using Data;
     using Data.Migrations;
-
     using Infrastructure.Mapping;
 
 #pragma warning disable SA1649 // File name must match first type name
@@ -30,6 +29,7 @@
 
             var autoMapperConfig = new AutoMapperConfig();
             autoMapperConfig.Execute(Assembly.GetExecutingAssembly());
+
         }
     }
 }

@@ -8,7 +8,6 @@
     using Microsoft.AspNet.Identity.EntityFramework;
 
     using Models;
-    using Models.Common;
     using SpecTester.Common;
 
     public sealed class Configuration : DbMigrationsConfiguration<SpecTesterDbContext>
@@ -50,145 +49,135 @@
 
             var passwordHasher = new PasswordHasher();
 
-            for (int i = 1; i < 10; i++)
+            var training = new TrainingSession()
             {
-                var training = new TrainingSession()
-                {
-                    Name = "Training " + (i + 1),
-                    Score = 100 + (i * 10),
-                    Dishes = new List<Dish>()
+                Name = "Basic Training",
+                Score = 100,
+                Dishes = new List<Dish>()
                     {
                         new Dish()
                         {
-                            Name = "English Breakfast " + i,
-                            Plate = PlateShape.Round,
-                            HasSauce = i % 2 == 0,
-                            Products = new List<Product>()
-                            {
-                                new Product()
-                                {
-                                    Name = "Sausages" + i,
-                                    CookingMethods = CookingMethod.DeepFry & CookingMethod.ShallowFry
-                                },
-                                new Product()
-                                {
-                                    Name = "Potatoes" + i,
-                                    CookingMethods = CookingMethod.DeepFry & CookingMethod.Boil
-                                },
-                                new Product()
-                                {
-                                    Name = "Tomatoes" + i,
-                                    CookingMethods = CookingMethod.Grill & CookingMethod.ReadyToEat
-                                },
-                                new Product()
-                                {
-                                    Name = "Mushrooms" + i,
-                                    CookingMethods = CookingMethod.ShallowFry
-                                },
-                                new Product()
-                                {
-                                    Name = "Beans" + i,
-                                    CookingMethods = CookingMethod.ReadyToEat
-                                }
-                            }
-                        },
-                        new Dish()
-                        {
-                            Name = "Pork with egg and pineapple " + i,
-                            Plate = PlateShape.Square,
+                            Name = "English Breakfast",
                             HasSauce = false,
                             Products = new List<Product>()
                             {
                                 new Product()
                                 {
-                                    Name = "French fries" + i,
-                                    CookingMethods = CookingMethod.DeepFry
+                                    Name = "Sausages",
+                                    ImageUrl = "sausages.png"
                                 },
                                 new Product()
                                 {
-                                    Name = "Pork chop" + i,
-                                    CookingMethods = CookingMethod.Grill
+                                    Name = "Bacon",
+                                    ImageUrl = "bacon.jpg"
+                                },
+                                new Product()
+                                {
+                                    Name = "Tomatoes",
+                                    ImageUrl = "tomato.png"
+                                },
+                                new Product()
+                                {
+                                    Name = "Fried egg",
+                                    ImageUrl = "fiedegg.png"
+                                },
+                                new Product()
+                                {
+                                    Name = "Toast",
+                                    ImageUrl = "toast.jpg"
+                                },
+                                new Product()
+                                {
+                                    Name = "Black pudding",
+                                    ImageUrl = "blackPudding.jpg"
+                                }
+                            }
+                        }
+                        /*,
+                        new Dish()
+                        {
+                            Name = "Pork with egg and pineapple",
+                            HasSauce = false,
+                            Products = new List<Product>()
+                            {
+                                new Product()
+                                {
+                                    Name = "French fries",
+                                },
+                                new Product()
+                                {
+                                    Name = "Pork chop",
                                 },
                                 new Product()
                                 {
                                     Name = "Eggs" + i,
-                                    CookingMethods = CookingMethod.ShallowFry
                                 },
                                 new Product()
                                 {
                                     Name = "Pineapple" + i,
-                                    CookingMethods = CookingMethod.Grill
                                 },
                                 new Product()
                                 {
                                     Name = "Peas" + i,
-                                    CookingMethods = CookingMethod.Boil
                                 }
                             }
                         },
                         new Dish()
                         {
                             Name = "Mix Grill " + i,
-                            Plate = PlateShape.Rectangular,
                             HasSauce = true,
                             Products = new List<Product>()
                             {
                                 new Product()
                                 {
                                     Name = "Steak " + i,
-                                CookingMethods = CookingMethod.Grill
                                 },
                                 new Product()
                                 {
                                     Name = "Pork " + i,
-                                CookingMethods = CookingMethod.Grill
                                 },
                                 new Product()
                                 {
                                     Name = "Sausage " + i,
-                                    CookingMethods = CookingMethod.ShallowFry
                                 },
                                 new Product()
                                 {
                                     Name = "Chicken Breast " + i,
-                                    CookingMethods = CookingMethod.Roast
                                 },
                                 new Product()
                                 {
                                     Name = "Beef " + i,
-                                    CookingMethods = CookingMethod.ShallowFry
                                 },
                             }
-                        }
+                        }*/
                     },
-                    Users = new List<User>()
+                Users = new List<User>()
                     {
                         new User()
                         {
-                            UserName = "Chef " + i,
-                            Email = "chef" + i + "@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password" + i)
+                            UserName = "Chef",
+                            Email = "chef@spectester.com",
+                            PasswordHash = passwordHasher.HashPassword("password")
                         },
                         new User()
                         {
-                            UserName = "Grill Master " + i,
-                            Email = "grillMaster" + i + "@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password" + i)
+                            UserName = "Grill Master",
+                            Email = "grillMaster@spectester.com",
+                            PasswordHash = passwordHasher.HashPassword("password")
                         },
                         new User()
                         {
-                            UserName = "Waitress " + i,
-                            Email = "waitress" + i + "@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password" + i)
+                            UserName = "Waitress",
+                            Email = "waitress@spectester.com",
+                            PasswordHash = passwordHasher.HashPassword("password")
                         },
                     },
 
-                    Author = context.Users.FirstOrDefault(admin => admin.UserName == GlobalConstants.AdministratorUserName)
-                };
+                Author = context.Users.FirstOrDefault(admin => admin.UserName == GlobalConstants.AdministratorUserName)
+            };
 
-                context.TrainingSessions.Add(training);
-                context.SaveChanges();
-            }
+            context.TrainingSessions.Add(training);
+            context.SaveChanges();
         }
     }
 }

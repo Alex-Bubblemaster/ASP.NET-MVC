@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using SpecTester.Data.Models;
-    using SpecTester.Data.Models.Common;
 
     public interface IProductsService
     {
@@ -10,8 +9,14 @@
 
         IQueryable<Product> All();
 
-        int GetCount();
+        void Add(Product entity);
 
-        IQueryable<Product> GetByCookingMethod(CookingMethod cookingMethod);
+        void Delete(int id);
+
+        Product GetById(int id);
+
+        void Save();
+
+        int GetCount();
     }
 }

@@ -1,12 +1,16 @@
 ﻿namespace SpecTester.Web.Areas.Administration.Controllers
 {
-    using System.Data.Entity;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
     using Common;
     using Data.Models;
+    using Infrastructure.Mapping;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data.Contracts;
+    using ViewModels;
     using Web.Controllers;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -25,68 +29,72 @@
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        //public ActionResult Products_Create([DataSourceRequest]DataSourceRequest request, Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var entity = new Product
-        //        {
-        //            Name = product.Name,
-        //            DeletedOn = product.DeletedOn,
-        //            CookingMethods = product.CookingMethods
-        //        };
-
-        //        db.Products.Add(entity);
-        //        db.SaveChanges();
-        //        product.Id = entity.Id;
-        //    }
-
-        //    return Json(new[] { product }.ToDataSourceResult(request, ModelState));
-        //}
-
-        //[AcceptVerbs(HttpVerbs.Post)]
-        //public ActionResult Products_Update([DataSourceRequest]DataSourceRequest request, Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var entity = new Product
-        //        {
-        //            Id = product.Id,
-        //            Name = product.Name,
-        //            CookingMethods = product.CookingMethods
-        //        };
-
-        //        db.Products.Attach(entity);
-        //        db.Entry(entity).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //    }
-
-        //    return Json(new[] { product }.ToDataSourceResult(request, ModelState));
-        //}
-
-        //[AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Products_Destroy([DataSourceRequest]DataSourceRequest request, Product product)
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                var entity = new Product
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    CookingMethods = product.CookingMethods
-                };
+            var products = this.products
+                .All()
+                .To<ProductViewModel>()
+                .ToList();
 
-                //db.Products.Attach(entity);
-                //db.Products.Remove(entity);
-                //db.SaveChanges();
+            return this.Json(products.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request)
+        {
+            return this.PartialView("_CreateProduct");
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file, FormCollection form)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(this.Server.MapPath("~/Content/images/products/"), fileName);
+                file.SaveAs(path);
+                this.products.Add(
+                    new Product()
+                    {
+                        Name = form["Name"],
+                        ImageUrl = fileName
+                    });
+                return this.RedirectToAction("Index");
             }
 
-            return Json(new[] { product }.ToDataSourceResult(request, ModelState));
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, EditProductAdminRequestModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var product = this.products.GetById(model.Id);
+                product.Name = model.Name;
+                this.products.Save();
+                var responseModel = this.Mapper.Map<ProductViewModel>(product);
+                return this.Json(new[] { responseModel }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Products_Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel model)
+        {
+            if (model != null)
+            {
+                this.products.Delete(model.Id);
+
+                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
         }
 
         protected override void Dispose(bool disposing)
         {
-            //db.Dispose();
             base.Dispose(disposing);
         }
     }

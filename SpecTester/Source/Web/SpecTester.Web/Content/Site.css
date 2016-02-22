@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+.k-header{
+    text-align:center;
+    grid-column-align:center;
+}

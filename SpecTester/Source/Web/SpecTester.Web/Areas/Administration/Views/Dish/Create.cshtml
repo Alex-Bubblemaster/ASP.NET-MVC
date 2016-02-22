@@ -1,8 +1,6 @@
-﻿@using SpecTester.Data.Models.Common
-@model SpecTester.Web.Areas.Administration.ViewModels.CreateDishViewModel
+﻿@model SpecTester.Web.Areas.Administration.ViewModels.CreateDishViewModel
 @{
     ViewBag.Title = "Create Dish";
-
 }
 
 <h2>Create Dish</h2>
@@ -21,28 +19,11 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PlateShapes, "Plate Shape", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SelectedPlate, Model.PlateShapes.Select(f => new SelectListItem { Value = f.ToString(), Text = Enum.GetName(typeof(PlateShape), f) }))
-            @Html.ValidationMessageFor(model => model.PlateShapes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Products, "Products", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.SelectedProducts, Model.Products.Select(f => new SelectListItem { Value = f.Id.ToString(), Text = f.Name }))
                 @Html.ValidationMessageFor(model => model.Products, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SelectedCookingMethods, "Cooking Methods", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.ListBoxFor(model => model.SelectedCookingMethods, Model.CookingMethods.Select(f => new SelectListItem { Value = f.ToString(), Text = Enum.GetName(typeof(CookingMethod), f)}), Model.SelectedCookingMethods)
-                @Html.ValidationMessageFor(model => model.CookingMethods, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
