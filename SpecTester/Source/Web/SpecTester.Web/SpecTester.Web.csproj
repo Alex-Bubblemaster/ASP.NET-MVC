@@ -245,19 +245,28 @@
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\booklet\images\arrow-next.png" />
+    <Content Include="Content\booklet\images\arrow-prev.png" />
+    <Content Include="Content\booklet\images\closedhand.cur" />
+    <Content Include="Content\booklet\images\openhand.cur" />
+    <Content Include="Content\booklet\images\shadow-top-back.png" />
+    <Content Include="Content\booklet\images\shadow-top-forward.png" />
+    <Content Include="Content\booklet\images\shadow.png" />
+    <Content Include="Content\booklet\jquery.booklet.latest.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\products\bacon.jpg" />
-    <Content Include="Content\images\products\blackPudding.jpg" />
+    <Content Include="Content\images\products\bacon.png" />
+    <Content Include="Content\images\products\blackPudding.png" />
     <Content Include="Content\images\products\sausages.png" />
+    <Content Include="Content\images\products\toast.png" />
+    <Content Include="Content\images\site\cookbook.png" />
     <Content Include="Content\images\site\dishes.png" />
     <Content Include="Content\images\site\Fresh-vegetables-in-basket_1.png" />
     <Content Include="Content\images\products\friedegg.png" />
     <Content Include="Content\images\products\mushrooms.png" />
     <Content Include="Content\images\site\Products.png" />
-    <Content Include="Content\images\products\toast.jpg" />
     <Content Include="Content\images\products\tomato.png" />
     <Content Include="Content\Kendo\kendo.black.min.css" />
     <Content Include="Content\Kendo\kendo.black.mobile.min.css" />
@@ -343,6 +352,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo.Mvc.xml" />
+    <Content Include="Scripts\booklet\jquery-ui-1.10.4.min.js" />
+    <Content Include="Scripts\booklet\jquery.booklet.latest.min.js" />
+    <Content Include="Scripts\booklet\jquery.easing.1.3.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -360,10 +372,7 @@
     <Content Include="Areas\Administration\Views\Training\Details.cshtml" />
     <Content Include="Areas\Administration\Views\Training\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Training\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Dish\Create.cshtml" />
-    <Content Include="Areas\Administration\Views\Dish\Delete.cshtml" />
-    <Content Include="Areas\Administration\Views\Dish\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Dish\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Dish\_CreateDish.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_DishesTableView.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Currency.cshtml" />
@@ -456,6 +465,7 @@
     <Content Include="Areas\Administration\Views\Product\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Manage\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Product\_CreateProduct.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Product.cshtml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -509,6 +519,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Views\Shared\DisplayTemplates\" />
     <Folder Include="Content\Kendo\Black\" />
     <Folder Include="Content\Kendo\BlueOpal\" />
     <Folder Include="Content\Kendo\Bootstrap\" />

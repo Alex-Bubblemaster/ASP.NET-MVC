@@ -39,7 +39,6 @@
             return this.Json(products.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request)
         {
             return this.PartialView("_CreateProduct");
@@ -62,7 +61,7 @@
                 return this.RedirectToAction("Index");
             }
 
-            return null;
+            return this.PartialView("_CreateProduct");
         }
 
         [HttpPost]
@@ -81,7 +80,7 @@
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Products_Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel model)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, ProductViewModel model)
         {
             if (model != null)
             {

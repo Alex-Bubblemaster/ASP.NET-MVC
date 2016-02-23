@@ -69,7 +69,7 @@
                                 new Product()
                                 {
                                     Name = "Bacon",
-                                    ImageUrl = "bacon.jpg"
+                                    ImageUrl = "bacon.png"
                                 },
                                 new Product()
                                 {
@@ -84,12 +84,12 @@
                                 new Product()
                                 {
                                     Name = "Toast",
-                                    ImageUrl = "toast.jpg"
+                                    ImageUrl = "toast.png"
                                 },
                                 new Product()
                                 {
                                     Name = "Black pudding",
-                                    ImageUrl = "blackPudding.jpg"
+                                    ImageUrl = "blackPudding.png"
                                 }
                             }
                         }

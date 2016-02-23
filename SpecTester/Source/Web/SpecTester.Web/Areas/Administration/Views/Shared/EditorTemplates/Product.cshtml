@@ -1,0 +1,6 @@
+﻿@using SpecTester.Web.Areas.Administration.ViewModels
+@model IEnumerable<ProductViewModel>
+
+    <span>@Model.Name</span>
+    <img src="@Url.Content("~/Content/images/products/") + @Model.ImageUrl" alt="@Model.Name" />
+}

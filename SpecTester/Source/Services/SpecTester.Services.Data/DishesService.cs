@@ -11,11 +11,13 @@
     public class DishesService : IDishesService
     {
         private readonly IDbRepository<Dish> dishes;
+        private readonly IDbRepository<Product> products;
         private readonly IIdentifierProvider identifierProvider;
 
-        public DishesService(IDbRepository<Dish> dishes, IIdentifierProvider identifierProvider)
+        public DishesService(IDbRepository<Dish> dishes, IDbRepository<Product> products, IIdentifierProvider identifierProvider)
         {
             this.dishes = dishes;
+            this.products = products;
             this.identifierProvider = identifierProvider;
         }
 
@@ -74,11 +76,12 @@
                 .OrderBy(x => x.Name);
         }
 
-        public Dish AddProducts(int id, List<Product> products)
+        public Dish AddProducts(int id, List<int> products)
         {
             var dish = this.dishes.GetById(id);
-            foreach (var product in dish.Products)
+            foreach (var productId in products)
             {
+                var product = this.products.GetById(productId);
                 dish.Products.Add(product);
             }
 

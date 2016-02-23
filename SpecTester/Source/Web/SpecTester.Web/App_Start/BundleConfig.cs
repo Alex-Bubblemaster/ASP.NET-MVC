@@ -19,6 +19,11 @@
             bundles.Add(new ScriptBundle("~/bundles/kendo")
                 .Include("~/Scripts/Kendo/kendo.all.min.js", "~/Scripts/Kendo/kendo.aspnetmvc.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/booklet")
+                .Include(
+                "~/Scripts/booklet/jquery-ui-1.10.4.min.js",
+                "~/Scripts/booklet/jquery.booklet.latest.min.js",
+                "~/Scripts/booklet/jquery.easing.1.3.js"));
         }
 
         private static void RegisterStyles(BundleCollection bundles)
@@ -27,6 +32,7 @@
             bundles.Add(new StyleBundle("~/Content/kendo-css").Include(
                 "~/Content/Kendo/kendo.common.min.css",
                 "~/Content/Kendo/kendo.silver.min.css"));
+            bundles.Add(new StyleBundle("~/Content/booklet-css").Include("~/Content/booklet/jquery.booklet.latest.css"));
         }
     }
 }

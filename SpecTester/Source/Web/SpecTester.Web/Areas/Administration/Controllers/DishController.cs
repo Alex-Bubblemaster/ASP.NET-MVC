@@ -1,10 +1,12 @@
 ﻿namespace SpecTester.Web.Areas.Administration.Controllers
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Data.Models;
     using Infrastructure.Mapping;
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
     using Services.Data.Contracts;
     using ViewModels;
     using Web.Controllers;
@@ -20,52 +22,79 @@
             this.products = products;
         }
 
-        // GET: Administration/Dish
         public ActionResult Index()
         {
-            var dishes = this.dishes.All().To<DishViewModel>().ToList();
+            var dishes = this.dishes
+                .All()
+                .To<DishViewModel>()
+                .ToList();
             return this.View(dishes);
         }
 
-        // GET: Administration/Dish/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request)
         {
-            var dish = this.dishes.GetById(id);
-            if (dish == null)
-            {
-                return this.HttpNotFound();
-            }
 
-            var viewModel = this.Mapper.Map<DishViewModel>(dish);
-            return this.View(viewModel);
-        }
+            var productsFromDatabase = this.products
+                .All()
+                .To<ProductViewModel>()
+                .ToList();
 
-        // GET: Administration/Dish/Create
-        public ActionResult Create()
-        {
-            var products = this.products.All().To<ProductViewModel>().ToList();
+            var selectedProducts = productsFromDatabase
+                .Select(p => p.Id)
+                .ToList();
 
             var model = new CreateDishViewModel()
             {
-                Products = products
+                Products = productsFromDatabase,
+                SelectedProducts = selectedProducts
             };
 
-            return this.PartialView(model);
+            return this.PartialView("_CreateDish", model);
         }
 
-        // POST: Administration/Dish/Create
+        public ActionResult AddProducts([DataSourceRequest]DataSourceRequest request)
+        {
+            return this.PartialView("_AddProductsToDish");
+        }
+
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult AddProductsToDish([DataSourceRequest]DataSourceRequest request, IEnumerable<int> products, int id)
+        //{
+        //    var dish = this.dishes.AddProducts(id, products.ToList());
+
+        //    if (dish != null)
+        //    {
+        //        var responseModel = this.Mapper.Map<DishViewModel>(dish);
+        //        return this.Json(new[] { responseModel }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        //    }
+
+        //    return null;
+        //}
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Plate,HasSauce,Products")] DishViewModel dish)
+        public ActionResult AddDish(CreateDishViewModel model)
         {
             if (this.ModelState.IsValid)
             {
-                var dishToAdd = this.Mapper.Map<Dish>(dish);
-                this.dishes.AddDish(dishToAdd);
+                var productsToAddInDish = new List<Product>();
+                foreach (var productId in model.SelectedProducts)
+                {
+                    var product = this.products.GetById(productId);
+                    productsToAddInDish.Add(product);
+                }
+
+                this.dishes.AddDish(
+                    new Dish()
+                    {
+                        Name = model.Name,
+                        HasSauce = model.HasSauce,
+                        Products = productsToAddInDish
+                    });
+
                 return this.RedirectToAction("Index");
             }
 
-            return this.View(dish);
+            return this.PartialView("_CreateDish");
         }
 
         //// GET: Administration/Dish/Edit/5

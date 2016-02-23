@@ -8,7 +8,7 @@
     {
         void AddDish(Dish dish);
 
-        Dish AddProducts(int id, List<Product> products);
+        Dish AddProducts(int id, List<int> products);
 
         Dish GetById(int id);
 
