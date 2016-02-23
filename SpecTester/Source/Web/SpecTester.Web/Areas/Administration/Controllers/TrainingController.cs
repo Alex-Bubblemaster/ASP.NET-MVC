@@ -1,5 +1,6 @@
 ﻿namespace SpecTester.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Common;
@@ -7,6 +8,7 @@
     using Infrastructure.Mapping;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
+    using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels;
     using Web.Controllers;
@@ -16,14 +18,15 @@
     {
         private readonly ITrainingsService trainings;
         private readonly IUsersService users;
+        private readonly IDishesService dishes;
 
-        public TrainingController(ITrainingsService trainings, IUsersService users)
+        public TrainingController(ITrainingsService trainings, IUsersService users, IDishesService dishes)
         {
             this.trainings = trainings;
             this.users = users;
+            this.dishes = dishes;
         }
 
-        // GET: Administration/Training
         public ActionResult Index()
         {
             return this.View();
@@ -39,17 +42,54 @@
             return this.Json(trainingSessions.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult AddTraining([DataSourceRequest]DataSourceRequest request)
+        {
+            var dishesFromDatabase = this.dishes
+                .All()
+                .To<DishViewModel>()
+                .ToList();
+
+            var selectedDishes = dishesFromDatabase
+                .Select(d => d.Id)
+                .ToList();
+
+            var model = new CreateTrainingViewModel()
+            {
+                Dishes = dishesFromDatabase,
+                SelectedDishes = selectedDishes
+            };
+            return this.PartialView("_CreateTraining", model);
+        }
+
         [HttpPost]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, TrainingAdminViewModel model)
+        public ActionResult Create(CreateTrainingViewModel model)
         {
             if (this.ModelState.IsValid)
             {
-                var training = this.Mapper.Map<TrainingSession>(model);
-                this.trainings.Add(training);
-                return this.Json(new[] { model }.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+                var dishesToAddInTraining = new List<Dish>();
+                var authorId = this.User.Identity.GetUserId();
+                var author = this.users.GetById(authorId);
+
+                foreach (var dishId in model.SelectedDishes)
+                {
+                    var dish = this.dishes.GetById(dishId);
+                    dishesToAddInTraining.Add(dish);
+                }
+
+                this.trainings.Add(
+                    new TrainingSession()
+                    {
+                        Name = model.Name,
+                        Dishes = dishesToAddInTraining,
+                        Score = model.Score,
+                        Author = author,
+                        AuthorId = authorId
+                    });
+
+                return this.RedirectToAction("Index");
             }
 
-            return null;
+            return this.PartialView("_CreateTraining");
         }
 
         [HttpPost]

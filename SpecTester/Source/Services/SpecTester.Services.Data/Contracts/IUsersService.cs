@@ -5,7 +5,7 @@
 
     public interface IUsersService
     {
-        User GetById(int id);
+        User GetById(string id);
 
         IQueryable<User> GetTopTen();
 

@@ -79,7 +79,7 @@
                                 new Product()
                                 {
                                     Name = "Fried egg",
-                                    ImageUrl = "fiedegg.png"
+                                    ImageUrl = "friedegg.png"
                                 },
                                 new Product()
                                 {

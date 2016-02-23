@@ -31,14 +31,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Products, "Products", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.LabelFor(x=>x.SelectedProducts)
                 @Html.ListBoxFor(x => x.SelectedProducts,Model.Products.Select(f => new SelectListItem { Value = f.Id.ToString(), Text = f.Name }))
                 @Html.ValidationMessageFor(model => model.Products, "", new { @class = "text-danger" })
             </div>
         </div>
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add Dish" class="btn btn-warning" />
+                <input type="submit" value="Add Dish" class="btn btn-danger" />
             </div>
         </div>
     </div>

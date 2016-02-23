@@ -20,6 +20,5 @@
         public IEnumerable<int> SelectedProducts { get; set; }
 
         public IEnumerable<ProductViewModel> Products { get; set; }
-
     }
 }

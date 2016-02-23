@@ -208,6 +208,7 @@
     <Compile Include="Areas\Administration\Controllers\TrainingController.cs" />
     <Compile Include="Areas\Administration\ViewModels\AdminManageViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\CreateDishViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\CreateTrainingViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\EditProductAdminRequestModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\ProductViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -268,6 +269,7 @@
     <Content Include="Content\images\products\mushrooms.png" />
     <Content Include="Content\images\site\Products.png" />
     <Content Include="Content\images\products\tomato.png" />
+    <Content Include="Content\images\site\training.jpg" />
     <Content Include="Content\Kendo\kendo.black.min.css" />
     <Content Include="Content\Kendo\kendo.black.mobile.min.css" />
     <Content Include="Content\Kendo\kendo.blueopal.min.css" />
@@ -367,10 +369,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Administration\Views\Training\Create.cshtml" />
-    <Content Include="Areas\Administration\Views\Training\Delete.cshtml" />
-    <Content Include="Areas\Administration\Views\Training\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Training\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Training\_CreateTraining.cshtml" />
     <Content Include="Areas\Administration\Views\Training\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\_CreateDish.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\Index.cshtml" />

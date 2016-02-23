@@ -28,7 +28,8 @@ textarea {
     grid-column-align: center;
 }
 
-#bookpage {
+#bookpage, #productsPage, #trainingPage {
+    z-index: -1;
     position: fixed;
     top: 0;
     left: 0;
@@ -40,7 +41,7 @@ textarea {
 #mybook {
     top: 50px;
     left: -10px;
-    font-family:'Bookman Old Style';
+    font-family: 'Bookman Old Style';
     /* Preserve aspect ratio */
     min-width: 100%;
     min-height: 100%;
@@ -50,8 +51,12 @@ textarea {
 .b-overlay, .b-next, .b-overlay-next, b-overlay-prev {
     background-color: antiquewhite !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)" !important; /* IE 8 */
-    filter: alpha(opacity=20)!important; /* IE 5-7 */
+    filter: alpha(opacity=20) !important; /* IE 5-7 */
     -moz-opacity: 0.2; /* Netscape */
     -khtml-opacity: 0.2; /* Safari 1.x */
     opacity: 0.2 !important;
+}
+
+.addProduct {
+    color: white;
 }

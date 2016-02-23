@@ -1,7 +1,14 @@
-﻿
-@using Kendo.Mvc.UI
-
-@(Html.Kendo().Grid<SpecTester.Web.Areas.Administration.ViewModels.TrainingAdminViewModel>()
+﻿@using Kendo.Mvc.UI
+@using SpecTester.Web.Areas.Administration.ViewModels
+<img id="trainingPage" src="~/Content/images/site/training.jpg" />
+<br />
+<div class="text-center">
+    <a href="#" id="getCreateTraining" class="btn btn-lg btn-primary">Create Training</a>
+    <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel Create</a>
+    <div id="add-training"></div>
+    <br />
+</div>
+@(Html.Kendo().Grid<TrainingAdminViewModel>()
     .Name("trainingGrid")
     .Columns(columns =>
     {
@@ -15,7 +22,6 @@
         columns.Bound(c => c.Dishes);
         columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
     })
-    .ToolBar(toolbar => toolbar.Create())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .HtmlAttributes(new { style = "height: 700px;" })
         .Scrollable()
@@ -37,10 +43,28 @@
                 model.Field(p => p.Users).Editable(false);
                 model.Field(p => p.Dishes).Editable(false);
             })
-            .Create(create => create.Action("Create", "Training"))
             .Read(read => read.Action("Read", "Training"))
             .Update(update => update.Action("Update", "Training"))
             .Destroy(destroy => destroy.Action("Delete", "Training"))
             .PageSize(20)
         )
 )
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#cancel').hide();
+        });
+
+        $('#getCreateTraining').on('click', function loadPartialView(context) {
+            $('#cancel').show();
+            $('#add-training').show();
+            $('#add-training').load('/Administration/Training/AddTraining');
+        });
+
+        $('#cancel').on('click', function hideForm() {
+            $('#add-training').hide();
+            $('#cancel').hide();
+        });
+    </script>
+}

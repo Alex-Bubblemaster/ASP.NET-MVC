@@ -1,5 +1,7 @@
 ﻿@using SpecTester.Web.Areas.Administration.ViewModels
 <br />
+<img id="productsPage" src="~/Content/images/site/training.png" />
+<br />
 <div class="text-center">
     <a href="#" id="getCreateProduct" class="btn btn-lg btn-primary">Create Product</a>
     <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel Create</a>
@@ -47,7 +49,7 @@
         $('#getCreateProduct').on('click', function loadPartialView(context) {
             $('#cancel').show();
             $('#add-product').show();
-            $('#add-product').load('Create');
+            $('#add-product').load('/Administration/Product/Create');
         });
 
         $('#cancel').on('click', function hideForm() {
