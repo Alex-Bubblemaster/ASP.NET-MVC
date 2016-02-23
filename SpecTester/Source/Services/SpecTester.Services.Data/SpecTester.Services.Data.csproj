@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IUsersService.cs" />
+    <Compile Include="Contracts\IUserTrainingsService.cs" />
     <Compile Include="DishesService.cs" />
     <Compile Include="Contracts\IDishesService.cs" />
     <Compile Include="Contracts\IProductsService.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrainingsService.cs" />
     <Compile Include="UsersService.cs" />
+    <Compile Include="UserTrainingsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SpecTester.Data.Common\SpecTester.Data.Common.csproj">

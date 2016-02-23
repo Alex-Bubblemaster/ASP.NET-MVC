@@ -216,6 +216,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
+    <Compile Include="Controllers\SpecTrainingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,6 +259,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dragula.min.css" />
     <Content Include="Content\images\products\bacon.png" />
     <Content Include="Content\images\products\blackPudding.png" />
     <Content Include="Content\images\products\sausages.png" />
@@ -267,6 +269,8 @@
     <Content Include="Content\images\site\Fresh-vegetables-in-basket_1.png" />
     <Content Include="Content\images\products\friedegg.png" />
     <Content Include="Content\images\products\mushrooms.png" />
+    <Content Include="Content\images\site\plate.jpg" />
+    <Content Include="Content\images\site\plate.png" />
     <Content Include="Content\images\site\Products.png" />
     <Content Include="Content\images\products\tomato.png" />
     <Content Include="Content\images\site\training.jpg" />
@@ -374,7 +378,6 @@
     <Content Include="Areas\Administration\Views\Dish\_CreateDish.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_DishesTableView.cshtml" />
-    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Currency.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Email.cshtml" />
@@ -465,6 +468,8 @@
     <Content Include="Areas\Administration\Views\Manage\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Product\_CreateProduct.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Product.cshtml" />
+    <Content Include="Scripts\dragula\dragula.min.js" />
+    <Content Include="Views\Shared\_TrainingDetail.cshtml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -515,6 +520,7 @@
     <Content Include="Views\Jokes\ById.cshtml" />
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />
+    <Content Include="Views\Shared\_ProductForCooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -541,6 +547,7 @@
     <Folder Include="ViewModels\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Views\SpecTraining\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

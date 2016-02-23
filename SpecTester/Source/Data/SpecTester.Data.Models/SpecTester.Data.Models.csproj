@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Dish.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ScoreTracker.cs" />
     <Compile Include="TrainingSession.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

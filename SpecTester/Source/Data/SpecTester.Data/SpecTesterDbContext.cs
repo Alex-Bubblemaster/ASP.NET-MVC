@@ -3,6 +3,7 @@
     using System;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Data.Entity.Validation;
     using System.Linq;
 
     using Common.Models;
@@ -24,6 +25,8 @@
 
         public virtual IDbSet<Product> Products { get; set; }
 
+        public virtual IDbSet<ScoreTracker> ScoreTrackers { get; set; }
+
         public static SpecTesterDbContext Create()
         {
             return new SpecTesterDbContext();
@@ -32,13 +35,24 @@
         public override int SaveChanges()
         {
             this.ApplyAuditInfoRules();
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var newException = new FormattedDbEntityValidationException(e);
+                throw newException;
+            }
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<User>().HasMany(x => x.TrainingSessions);
+            modelBuilder.Entity<TrainingSession>().HasMany(x => x.Users);
 
             base.OnModelCreating(modelBuilder);
         }

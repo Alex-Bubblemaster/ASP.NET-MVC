@@ -3,6 +3,7 @@
 /// <reference path="booklet/jquery.easing.1.3.js" />
 /// <reference path="booklet/jquery-ui-1.10.4.min.js" />
 /// <reference path="bootstrap.js" />
+/// <reference path="dragula/dragula.min.js" />
 /// <reference path="jquery.min.js" />
 /// <reference path="jquery.unobtrusive-ajax.min.js" />
 /// <reference path="jquery.validate.min.js" />

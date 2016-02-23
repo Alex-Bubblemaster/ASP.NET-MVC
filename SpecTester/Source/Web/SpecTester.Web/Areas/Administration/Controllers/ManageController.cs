@@ -9,7 +9,6 @@
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class ManageController : BaseController
     {
-        // TODO: add IUsersService
         private readonly IProductsService products;
         private readonly ITrainingsService trainings;
         private readonly IDishesService dishes;
@@ -21,7 +20,6 @@
             this.dishes = dishes;
         }
 
-        // GET: Administration/Manage
         [HttpGet]
         public ActionResult Index()
         {

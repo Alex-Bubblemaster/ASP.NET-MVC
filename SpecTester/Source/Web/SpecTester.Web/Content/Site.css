@@ -29,10 +29,10 @@ textarea {
 }
 
 #bookpage, #productsPage, #trainingPage {
-    z-index: -1;
-    position: fixed;
+    z-index: -1 !important;
     top: 0;
     left: 0;
+    position: fixed;
     /* Preserve aspect ratio */
     min-width: 100%;
     min-height: 100%;
@@ -60,3 +60,18 @@ textarea {
 .addProduct {
     color: white;
 }
+
+.training-title {
+    font-family: 'Bookman Old Style';
+}
+
+.cooking {
+    float: left;
+    margin: 10px;
+    padding: 10px;
+}
+
+#plate{
+    z-index:-2;
+}
+

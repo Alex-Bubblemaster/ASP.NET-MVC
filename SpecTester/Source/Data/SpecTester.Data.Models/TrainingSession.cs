@@ -1,10 +1,9 @@
 ﻿namespace SpecTester.Data.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Data.Common.Models;
+    using Common.Models;
     using SpecTester.Common;
 
     public class TrainingSession : BaseModel<int>
@@ -13,6 +12,7 @@
         {
             this.Dishes = new HashSet<Dish>();
             this.Users = new HashSet<User>();
+            this.ScoreTrackers = new HashSet<ScoreTracker>();
         }
 
         [Required]
@@ -23,7 +23,7 @@
         [Required]
         public int Score { get; set; }
 
-        public DateTime? CompletedIn { get; set; }
+        public int CompletedIn { get; set; }
 
         [Required]
         public string AuthorId { get; set; }
@@ -32,6 +32,8 @@
         public virtual User Author { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+
+        public virtual ICollection<ScoreTracker> ScoreTrackers { get; set; }
 
         public virtual ICollection<Dish> Dishes { get; set; }
     }

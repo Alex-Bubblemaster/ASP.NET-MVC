@@ -8,10 +8,12 @@
     public class UsersService : IUsersService
     {
         private readonly IDbRepository<User> users;
+        private readonly IDbRepository<TrainingSession> trainings;
 
-        public UsersService(IDbRepository<User> users)
+        public UsersService(IDbRepository<User> users, IDbRepository<TrainingSession> trainings)
         {
             this.users = users;
+            this.trainings = trainings;
         }
 
         public User GetById(string id)

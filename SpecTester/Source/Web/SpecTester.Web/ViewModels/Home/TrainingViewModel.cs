@@ -1,7 +1,7 @@
 ﻿namespace SpecTester.Web.ViewModels.Home
 {
-    using System;
     using System.Collections.Generic;
+    using Areas.Administration.ViewModels;
     using AutoMapper;
     using Common;
     using Data.Models;
@@ -16,9 +16,11 @@
 
         public IEnumerable<DishNameViewModel> Dishes { get; set; }
 
+        public IEnumerable<CreateDishViewModel> CreateDishes { get; set; }
+
         public int Users { get; set; }
 
-        public int TotalScore { get; set; }
+        public int Score { get; set; }
 
         public string Url
         {
@@ -32,7 +34,8 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<TrainingSession, TrainingViewModel>()
-                .ForMember(x => x.Users, opt => opt.MapFrom(x => x.Users.Count));
+                .ForMember(x => x.Users, opt => opt.MapFrom(x => x.Users.Count))
+                .ForMember(x => x.CreateDishes, opt => opt.Ignore());
         }
     }
 }

@@ -24,6 +24,7 @@
                 "~/Scripts/booklet/jquery-ui-1.10.4.min.js",
                 "~/Scripts/booklet/jquery.booklet.latest.min.js",
                 "~/Scripts/booklet/jquery.easing.1.3.js"));
+            bundles.Add(new ScriptBundle("~/bundles/dragula").Include("~/Scripts/dragula/dragula.min.js"));
         }
 
         private static void RegisterStyles(BundleCollection bundles)
@@ -33,6 +34,8 @@
                 "~/Content/Kendo/kendo.common.min.css",
                 "~/Content/Kendo/kendo.silver.min.css"));
             bundles.Add(new StyleBundle("~/Content/booklet-css").Include("~/Content/booklet/jquery.booklet.latest.css"));
+            bundles.Add(new StyleBundle("~/Content/dragula-css").Include("~/Content/dragula/dragula.min.css"));
+
         }
     }
 }

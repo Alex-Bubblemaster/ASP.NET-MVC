@@ -20,7 +20,7 @@
         public int Score { get; set; }
 
         [DisplayName("Completed In")]
-        public DateTime? CompletedIn { get; set; }
+        public int CompletedIn { get; set; }
 
         [DisplayName("Created On")]
 

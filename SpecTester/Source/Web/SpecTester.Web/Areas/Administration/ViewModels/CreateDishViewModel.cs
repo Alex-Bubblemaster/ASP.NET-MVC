@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Data.Models;
     using Infrastructure.Mapping;
-    using Web.ViewModels.Common;
 
     public class CreateDishViewModel : IMapTo<Dish>
     {

@@ -25,8 +25,8 @@
                     }
                 </td>
                 <td>@training.Users</td>
-                <td>@training.TotalScore</td>
-                <td><input type="submit" class="btn btn-warning" value="Join"></td>
+                <td>@training.Score</td>
+                <td>@Html.ActionLink("Join","Join","SpecTraining", new { id = training.Id }, new {@class = "btn btn-primary"})</td>
             </tr>
         }
     </table>

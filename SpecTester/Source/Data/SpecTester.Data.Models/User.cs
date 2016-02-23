@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using Data.Common.Models;
+    using Common.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -13,8 +13,9 @@
     {
         public User()
         {
-            this.TrainingSessions = new HashSet<TrainingSession>();
             this.CreatedOn = DateTime.Now;
+            this.TrainingSessions = new HashSet<TrainingSession>();
+            this.ScoreTrackers = new HashSet<ScoreTracker>();
         }
 
         public DateTime CreatedOn { get; set; }
@@ -29,6 +30,8 @@
         public int TotalScore { get; set; }
 
         public virtual ICollection<TrainingSession> TrainingSessions { get; set; }
+
+        public virtual ICollection<ScoreTracker> ScoreTrackers { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

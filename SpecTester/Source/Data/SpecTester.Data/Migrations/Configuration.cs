@@ -1,5 +1,6 @@
 ﻿namespace SpecTester.Data.Migrations
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -40,20 +41,16 @@
 
                 // Assign user to admin role
                 userManager.AddToRole(user.Id, GlobalConstants.AdministratorRoleName);
-            }
 
-            if (context.TrainingSessions.Any())
-            {
-                return;
-            }
+                var passwordHasher = new PasswordHasher();
+                var training = new TrainingSession()
+                {
+                    Name = "Basic Training",
+                    Score = 100,
+                    Author = user,
+                    AuthorId = user.Id,
 
-            var passwordHasher = new PasswordHasher();
-
-            var training = new TrainingSession()
-            {
-                Name = "Basic Training",
-                Score = 100,
-                Dishes = new List<Dish>()
+                    Dishes = new List<Dish>()
                     {
                         new Dish()
                         {
@@ -151,33 +148,35 @@
                             }
                         }*/
                     },
-                Users = new List<User>()
+                    Users = new List<User>()
                     {
                         new User()
                         {
                             UserName = "Chef",
                             Email = "chef@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password")
+                            PasswordHash = passwordHasher.HashPassword("password"),
+                            SecurityStamp = Guid.NewGuid().ToString()
                         },
                         new User()
                         {
                             UserName = "Grill Master",
                             Email = "grillMaster@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password")
+                            PasswordHash = passwordHasher.HashPassword("password"),
+                            SecurityStamp = Guid.NewGuid().ToString()
                         },
                         new User()
                         {
                             UserName = "Waitress",
                             Email = "waitress@spectester.com",
-                            PasswordHash = passwordHasher.HashPassword("password")
+                            PasswordHash = passwordHasher.HashPassword("password"),
+                            SecurityStamp = Guid.NewGuid().ToString()
                         },
-                    },
+                    }
+                };
 
-                Author = context.Users.FirstOrDefault(admin => admin.UserName == GlobalConstants.AdministratorUserName)
-            };
-
-            context.TrainingSessions.Add(training);
-            context.SaveChanges();
+                context.TrainingSessions.Add(training);
+                context.SaveChanges();
+            }
         }
     }
 }
