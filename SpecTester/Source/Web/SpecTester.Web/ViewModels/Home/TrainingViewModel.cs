@@ -1,12 +1,14 @@
 ﻿namespace SpecTester.Web.ViewModels.Home
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Areas.Administration.ViewModels;
     using AutoMapper;
     using Common;
     using Data.Models;
     using Infrastructure.Mapping;
     using Services.Web;
+    using SpecTraining;
 
     public class TrainingViewModel : IMapFrom<TrainingSession>, IHaveCustomMappings
     {
@@ -17,6 +19,8 @@
         public IEnumerable<DishNameViewModel> Dishes { get; set; }
 
         public IEnumerable<CreateDishViewModel> CreateDishes { get; set; }
+
+        public IEnumerable<ScoreTrackerViewModel> UserScores { get; set; }
 
         public int Users { get; set; }
 
@@ -35,6 +39,7 @@
         {
             configuration.CreateMap<TrainingSession, TrainingViewModel>()
                 .ForMember(x => x.Users, opt => opt.MapFrom(x => x.Users.Count))
+                .ForMember(x => x.UserScores, opt => opt.MapFrom(x => x.ScoreTrackers.Where(y => y.TrainingId == this.Id)))
                 .ForMember(x => x.CreateDishes, opt => opt.Ignore());
         }
     }

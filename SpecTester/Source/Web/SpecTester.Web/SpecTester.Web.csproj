@@ -234,6 +234,7 @@
     <Compile Include="Areas\Administration\ViewModels\UserAdminViewModel.cs" />
     <Compile Include="ViewModels\Common\DishNameViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\DishViewModel.cs" />
+    <Compile Include="ViewModels\SpecTraining\ScoreTrackerViewModel.cs" />
     <Compile Include="ViewModels\Home\TrainingViewModel.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
@@ -544,7 +545,6 @@
     <Folder Include="Content\Kendo\Silver\" />
     <Folder Include="Content\Kendo\textures\" />
     <Folder Include="Content\Kendo\Uniform\" />
-    <Folder Include="ViewModels\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Product\" />
     <Folder Include="Views\SpecTraining\" />

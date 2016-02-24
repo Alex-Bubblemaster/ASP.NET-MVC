@@ -1,6 +1,8 @@
 ﻿namespace SpecTester.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Contracts;
     using SpecTester.Data.Common;
     using SpecTester.Data.Models;
@@ -47,6 +49,56 @@
         public TrainingSession GetById(int id)
         {
             return this.trainings.GetById(id);
+        }
+
+        public int Cook(string userId, int trainingId, int dishId, IEnumerable<int> selectedProducts)
+        {
+            int matches = 0;
+            var training = this.trainings.GetById(trainingId);
+            if (training != null)
+            {
+                var dish = training.Dishes.FirstOrDefault(x => x.Id == dishId);
+                if (dish != null)
+                {
+                    foreach (var product in dish.Products)
+                    {
+                        foreach (var item in selectedProducts)
+                        {
+                            if (product.Id == item)
+                            {
+                                matches++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.UpdateUserScore(matches, trainingId, userId);
+            return matches;
+        }
+
+        public void UpdateUserScore(int score, int trainingId, string userId)
+        {
+            var user = this.users.GetById(userId);
+            var training = this.trainings.GetById(trainingId);
+            var userScoreTracker = user.ScoreTrackers.FirstOrDefault(x => x.TrainingId == trainingId);
+            if (userScoreTracker != null && score > userScoreTracker.ScoreResult)
+            {
+                userScoreTracker.ScoreResult = score;
+            }
+            else
+            {
+                user.ScoreTrackers.Add(new ScoreTracker()
+                {
+                    ScoreResult = score,
+                    UserId = userId,
+                    User = user,
+                    TrainingId = trainingId,
+                    TrainingSession = training
+                });
+            }
+
+            this.users.Save();
         }
     }
 }

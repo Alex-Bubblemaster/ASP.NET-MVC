@@ -1,4 +1,6 @@
-﻿@model SpecTester.Web.ViewModels.Home.TrainingViewModel
+﻿@using System.Linq
+
+@model SpecTester.Web.ViewModels.Home.TrainingViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,82 +10,118 @@
         <div class="well">
             <div class="caption text-center training-title">
                 <h3>@Model.Name</h3>
-                <h4>Score: @Model.Score</h4>
+                <h4>Maximum Score: @Model.Score</h4>
+                <h4 class="text-success">
+                    Your Score :
+                    @if (Model.UserScores.Any())
+                    {
+                        <span>@(Model.UserScores.Select(x => x.ScoreResult))</span>
+                    }
+                    else
+                    {
+                        <span>0</span>
+                    }
+                </h4>
                 <h4>Participants: @Model.Users</h4>
             </div>
             <div>
-                <div id="placeholder">
-                    <img class="img-responsive img-rounded" id="plate" src="~/Content/images/site/plate.png" alt="plate" />
+                <img class="img-responsive img-rounded" id="plate" src="~/Content/images/site/plate.png" alt="plate" />
+                <div id="left">
                 </div>
-
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-4" id="dish-menu">
         @foreach (var dish in Model.Dishes)
-            {
+        {
             <div class="well dish">
-                <a href="#" class="dish">
+                <a href="#" class="dish" id='@("link" + dish.Id)'>
                     <h4 id="@dish.Id" class="caption text-center training-title">@dish.Name</h4>
+                    @if (Model.UserScores.Any())
+                    {
+                        <div>Current best: @(Model.UserScores.Select(x => x.ScoreResult))</div>
+                    }
                 </a>
             </div>
         }
-        <div id="show-products"></div>
-        <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel</a>
+        <div id="show-products" class="text-center">
+        </div>
+        <div class="text-center">
+            <a href="#" id="cookIt" class="btn btn-lg btn-primary">Cook it!</a>
+            <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel</a>
+        </div>
     </div>
 </div>
 
 @section scripts{
     <script>
         var currentRecipe;
+        var id;
+        var dishHeading;
         var dishes = $("#dish-menu");
         $(document).ready(function () {
             $('#cancel').hide();
+            $('#cookIt').hide();
         });
 
         $(".dish").on("click", function (ev) {
-            var id = ev.target.id;
+            id = ev.target.id;
             currentRecipe = $("#" + id);
             $(".dish").hide();
             $('#cancel').show();
-            dishes.prepend(currentRecipe);
-            currentRecipe.show();
-            $('#show-products').load("/SpecTraining/GetProducts");
+            $('#cookIt').show();
+
+            if (dishHeading) {
+                dishes.prepend(dishHeading);
+            } else {
+                dishes.prepend(currentRecipe);
+                currentRecipe.show();
+            }
+
+            var visibility = $("#show-products").css("display");
+            if (visibility === "none") {
+                $('#show-products').show();
+            } else {
+                $('#show-products').load("/SpecTraining/GetProducts");
+            }
         });
 
         $("#cancel").on("click", function () {
             $(".dish").show();
+            dishHeading = currentRecipe.detach();
+            currentRecipe = null;
+            $("#link" + id).append(dishHeading);
             $('#cancel').hide();
+            $('#cookIt').hide();
             $("#show-products").hide();
+            $(".moved-products").remove();
         });
 
-        function drag_start(event) {
-            var style = window.getComputedStyle(event.target, null);
-            event.dataTransfer.setData("text/plain",
-            (parseInt(style.getPropertyValue("left"), 10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"), 10) - event.clientY));
-        }
 
-        function drag_over(event) {
-            event.preventDefault();
-            return false;
-        }
+        var drake = dragula();
+        dragula([document.getElementById("left"), document.getElementById("show-products")], {
+            copy: true,
+            revertOnSpill: true
+        }).on('drop', function (el) {
+            el.className += ' ex-moved';
+            $('.ex-moved').replaceWith(function () {
+                return $('img', this).addClass("moved-products");
+            });
+        });
 
-        function drop(event) {
-            var offset = event.dataTransfer.getData("text/plain").split(',');
-            console.log(event.target);
-            var dm = document.getElementById('product');
-            dm.style.left = (event.clientX + parseInt(offset[0], 10)) + 'px';
-            dm.style.top = (event.clientY + parseInt(offset[1], 10)) + 'px';
-            event.preventDefault();
-            return false;
-        }
-        var products = $('aside');
-        for (var i = 0; i < products.length; i++) {
-            products[i].addEventListener('dragstart', drag_start, false);
-        }
-        document.body.addEventListener('dragover', drag_over, false);
-        document.body.addEventListener('drop', drop, false);
+        $('#cookIt').on('click', function () {
+            var productsSelected = [];
+            $('.moved-products').each(function () {
+                productsSelected.push(this.id);
+            });
+            $.ajax({
+                type:'POST',
+                url : "/SpecTraining/Cook/" + id,
+                data: JSON.stringify(productsSelected),
+                contentType: "application/json;"
+            })
+        });
+
     </script>
 }
-

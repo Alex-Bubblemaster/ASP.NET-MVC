@@ -75,3 +75,10 @@ textarea {
     z-index:-2;
 }
 
+#left{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    width: 34%;
+    height: 35%;
+}

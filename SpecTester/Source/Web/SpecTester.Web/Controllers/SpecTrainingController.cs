@@ -1,12 +1,16 @@
 ﻿namespace SpecTester.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Script.Serialization;
     using Areas.Administration.ViewModels;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels.Home;
+    using ViewModels.SpecTraining;
 
     [Authorize]
     public class SpecTrainingController : BaseController
@@ -46,56 +50,21 @@
             return this.PartialView("_ProductForCooking", products);
         }
 
-        // GET: SpecTraining/Create
-        public ActionResult Create()
+        public ActionResult Cook(int id)
         {
-            return View();
+            // Return the input stream to 0 as it has already been read
+            this.HttpContext.Request.InputStream.Position = 0;
+            var result = new System.IO.StreamReader(this.HttpContext.Request.InputStream).ReadToEnd();
+
+            // Manually remove unnessesary chars. No need for another lib for just that, is there
+            var selectedItems = result.Split(new char[] { '/', '"', '[', ']', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            var trainingId = int.Parse(this.Request.UrlReferrer.Segments[3]);
+            var userId = this.User.Identity.GetUserId();
+            int matches = this.userTrainings.Cook(userId, trainingId, id, selectedItems);
+            return this.Redirect("/SpecTraining/Join/" + id);
         }
-
-        // POST: SpecTraining/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SpecTraining/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SpecTraining/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SpecTraining/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-
     }
 }
