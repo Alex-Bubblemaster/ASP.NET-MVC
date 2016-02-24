@@ -4,13 +4,11 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-
+    using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-
-    using SpecTester.Data.Models;
-    using SpecTester.Web.ViewModels.Account;
+    using ViewModels.Account;
 
     [Authorize]
     public class AccountController : BaseController
