@@ -2,34 +2,41 @@
 {
     using System.Linq;
     using System.Web.Mvc;
-
+    using Common;
     using Infrastructure.Mapping;
     using PagedList;
     using Services.Data.Contracts;
+    using Services.Web;
     using ViewModels.Home;
 
     public class HomeController : BaseController
     {
         private readonly ITrainingsService trainings;
+        private readonly ICacheService cache;
 
-        public HomeController(ITrainingsService trainings)
+        public HomeController(ITrainingsService trainings, ICacheService cache)
         {
             this.trainings = trainings;
+            this.cache = cache;
         }
 
         [HttpGet]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             this.ViewBag.CurrentSort = sortOrder;
-            page = 1;
-            var trainingSessions = this.trainings
-                .All()
-                .To<TrainingViewModel>()
-                .ToList();
+            if (page == null)
+            {
+                page = 1;
+            }
+
+            var trainings = this.cache
+                .Get("HomePageData", () => this.trainings.All().To<TrainingViewModel>().ToList(), 5 * 60);
+
+            // var trainings = this.trainings.All().To<TrainingViewModel>().ToList();
 
             int pageSize = 3;
             int pageNumber = page ?? 1;
-            return this.View(trainingSessions.ToPagedList(pageNumber, pageSize));
+            return this.View(trainings.ToPagedList(pageNumber, pageSize));
         }
     }
 }

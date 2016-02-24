@@ -385,7 +385,6 @@
     <Content Include="Areas\Administration\Views\Training\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\_CreateDish.cshtml" />
     <Content Include="Areas\Administration\Views\Dish\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Shared\_DishesTableView.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Email.cshtml" />
@@ -395,7 +394,6 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Number.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Password.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Content\Kendo\kendo.black.min.css.map" />
     <Content Include="Content\Kendo\kendo.black.mobile.min.css.map" />
@@ -531,7 +529,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Views\Shared\DisplayTemplates\" />
     <Folder Include="Content\Kendo\Black\" />
     <Folder Include="Content\Kendo\BlueOpal\" />
     <Folder Include="Content\Kendo\Bootstrap\" />
@@ -551,9 +548,6 @@
     <Folder Include="Content\Kendo\Silver\" />
     <Folder Include="Content\Kendo\textures\" />
     <Folder Include="Content\Kendo\Uniform\" />
-    <Folder Include="Views\Base\" />
-    <Folder Include="Views\Product\" />
-    <Folder Include="Views\SpecTraining\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
