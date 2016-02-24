@@ -1,16 +1,13 @@
 ﻿namespace SpecTester.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.Script.Serialization;
     using Areas.Administration.ViewModels;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels.Home;
-    using ViewModels.SpecTraining;
 
     [Authorize]
     public class SpecTrainingController : BaseController
@@ -64,7 +61,8 @@
             var trainingId = int.Parse(this.Request.UrlReferrer.Segments[3]);
             var userId = this.User.Identity.GetUserId();
             int matches = this.userTrainings.Cook(userId, trainingId, id, selectedItems);
-            return this.Redirect("/SpecTraining/Join/" + id);
+
+            return this.RedirectToAction("Join", new { id = id });
         }
     }
 }

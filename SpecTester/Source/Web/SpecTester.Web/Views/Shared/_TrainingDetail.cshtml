@@ -1,127 +1,127 @@
 ﻿@using System.Linq
-
-@model SpecTester.Web.ViewModels.Home.TrainingViewModel
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<br />
-<div class="row" id="menu">
-    <div class="col-md-8">
-        <div class="well">
-            <div class="caption text-center training-title">
-                <h3>@Model.Name</h3>
-                <h4>Maximum Score: @Model.Score</h4>
-                <h4 class="text-success">
-                    Your Score :
-                    @if (Model.UserScores.Any())
-                    {
-                        <span>@(Model.UserScores.Select(x => x.ScoreResult))</span>
-                    }
-                    else
-                    {
-                        <span>0</span>
-                    }
-                </h4>
-                <h4>Participants: @Model.Users</h4>
-            </div>
-            <div>
-                <img class="img-responsive img-rounded" id="plate" src="~/Content/images/site/plate.png" alt="plate" />
-                <div id="left">
+@using Microsoft.AspNet.Identity
+    @model SpecTester.Web.ViewModels.Home.TrainingViewModel
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <br />
+    <div class="row" id="menu">
+        <div class="col-md-8">
+            <div class="well">
+                <div class="caption text-center training-title">
+                    <h3>@Model.Name</h3>
+                    <h4>Maximum Score: @Model.Score</h4>
+                    <h4 class="text-success">
+                        Your Score :
+                        @if (Model.ScoreTrackers.Any())
+                        {
+                            <span>@(Model.ScoreTrackers.Where(x => x.UserId == this.User.Identity.GetUserId()).Sum(x => x.ScoreResult))</span>
+                        }
+                        else
+                        {
+                            <span>0</span>
+                        }
+                    </h4>
+                    <h4>Participants: @Model.Users</h4>
+                </div>
+                <div>
+                    <img class="img-responsive img-rounded" id="plate" src="~/Content/images/site/plate.png" alt="plate" />
+                    <div id="left">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4" id="dish-menu">
-        @foreach (var dish in Model.Dishes)
-        {
-            <div class="well dish">
-                <a href="#" class="dish" id='@("link" + dish.Id)'>
-                    <h4 id="@dish.Id" class="caption text-center training-title">@dish.Name</h4>
-                    @if (Model.UserScores.Any())
-                    {
-                        <div>Current best: @(Model.UserScores.Select(x => x.ScoreResult))</div>
-                    }
-                </a>
+        <div class="col-md-4" id="dish-menu">
+            @foreach (var dish in Model.Dishes)
+            {
+                <div class="well dish">
+                    <a href="#" class="dish" id='@("link" + dish.Id)'>
+                        <h4 id="@dish.Id" class="caption text-center training-title">@dish.Name</h4>
+                        @if (Model.ScoreTrackers.Any())
+                        {
+                            <div class="text-center text-warning">Current best: @(Model.ScoreTrackers.Where(x => x.UserId == this.User.Identity.GetUserId()).Max(x => x.ScoreResult))</div>
+                        }
+                    </a>
+                </div>
+            }
+            <div id="show-products" class="text-center">
             </div>
-        }
-        <div id="show-products" class="text-center">
-        </div>
-        <div class="text-center">
-            <a href="#" id="cookIt" class="btn btn-lg btn-primary">Cook it!</a>
-            <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel</a>
+            <div class="text-center">
+                <a href="#" id="cookIt" class="btn btn-lg btn-primary">Cook it!</a>
+                <a href="#" id="cancel" class="btn btn-lg btn-warning">Cancel</a>
+            </div>
         </div>
     </div>
-</div>
 
-@section scripts{
-    <script>
-        var currentRecipe;
-        var id;
-        var dishHeading;
-        var dishes = $("#dish-menu");
-        $(document).ready(function () {
-            $('#cancel').hide();
-            $('#cookIt').hide();
-        });
-
-        $(".dish").on("click", function (ev) {
-            id = ev.target.id;
-            currentRecipe = $("#" + id);
-            $(".dish").hide();
-            $('#cancel').show();
-            $('#cookIt').show();
-
-            if (dishHeading) {
-                dishes.prepend(dishHeading);
-            } else {
-                dishes.prepend(currentRecipe);
-                currentRecipe.show();
-            }
-
-            var visibility = $("#show-products").css("display");
-            if (visibility === "none") {
-                $('#show-products').show();
-            } else {
-                $('#show-products').load("/SpecTraining/GetProducts");
-            }
-        });
-
-        $("#cancel").on("click", function () {
-            $(".dish").show();
-            dishHeading = currentRecipe.detach();
-            currentRecipe = null;
-            $("#link" + id).append(dishHeading);
-            $('#cancel').hide();
-            $('#cookIt').hide();
-            $("#show-products").hide();
-            $(".moved-products").remove();
-        });
-
-
-        var drake = dragula();
-        dragula([document.getElementById("left"), document.getElementById("show-products")], {
-            copy: true,
-            revertOnSpill: true
-        }).on('drop', function (el) {
-            el.className += ' ex-moved';
-            $('.ex-moved').replaceWith(function () {
-                return $('img', this).addClass("moved-products");
+    @section scripts{
+        <script>
+            var currentRecipe;
+            var id;
+            var dishHeading;
+            var dishes = $("#dish-menu");
+            $(document).ready(function () {
+                $('#cancel').hide();
+                $('#cookIt').hide();
             });
-        });
 
-        $('#cookIt').on('click', function () {
-            var productsSelected = [];
-            $('.moved-products').each(function () {
-                productsSelected.push(this.id);
+            $(".dish").on("click", function (ev) {
+                id = ev.target.id;
+                currentRecipe = $("#" + id);
+                $(".dish").hide();
+                $('#cancel').show();
+                $('#cookIt').show();
+
+                if (dishHeading) {
+                    dishes.prepend(dishHeading);
+                } else {
+                    dishes.prepend(currentRecipe);
+                    currentRecipe.show();
+                }
+
+                var visibility = $("#show-products").css("display");
+                if (visibility === "none") {
+                    $('#show-products').show();
+                } else {
+                    $('#show-products').load("/SpecTraining/GetProducts");
+                }
             });
-            $.ajax({
-                type:'POST',
-                url : "/SpecTraining/Cook/" + id,
-                data: JSON.stringify(productsSelected),
-                contentType: "application/json;"
-            })
-        });
 
-    </script>
-}
+            $("#cancel").on("click", function () {
+                $(".dish").show();
+                dishHeading = currentRecipe.detach();
+                currentRecipe = null;
+                $("#link" + id).append(dishHeading);
+                $('#cancel').hide();
+                $('#cookIt').hide();
+                $("#show-products").hide();
+                $(".moved-products").remove();
+            });
+
+
+            var drake = dragula();
+            dragula([document.getElementById("left"), document.getElementById("show-products")], {
+                copy: true,
+                revertOnSpill: true
+            }).on('drop', function (el) {
+                el.className += ' ex-moved';
+                $('.ex-moved').replaceWith(function () {
+                    return $('img', this).addClass("moved-products");
+                });
+            });
+
+            $('#cookIt').on('click', function () {
+                var productsSelected = [];
+                $('.moved-products').each(function () {
+                    productsSelected.push(this.id);
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "/SpecTraining/Cook/" + id,
+                    data: JSON.stringify(productsSelected),
+                    contentType: "application/json;"
+                })
+            });
+
+        </script>
+    }

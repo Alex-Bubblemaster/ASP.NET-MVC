@@ -82,9 +82,16 @@
             var user = this.users.GetById(userId);
             var training = this.trainings.GetById(trainingId);
             var userScoreTracker = user.ScoreTrackers.FirstOrDefault(x => x.TrainingId == trainingId);
-            if (userScoreTracker != null && score > userScoreTracker.ScoreResult)
+            if (userScoreTracker != null)
             {
-                userScoreTracker.ScoreResult = score;
+                if (score > userScoreTracker.ScoreResult)
+                {
+                    userScoreTracker.ScoreResult = score;
+                    this.users.Save();
+                    return;
+                }
+
+                return;
             }
             else
             {
@@ -96,9 +103,8 @@
                     TrainingId = trainingId,
                     TrainingSession = training
                 });
+                this.users.Save();
             }
-
-            this.users.Save();
         }
     }
 }

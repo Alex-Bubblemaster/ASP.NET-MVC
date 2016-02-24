@@ -7,8 +7,6 @@
     {
         public string UserId { get; set; }
 
-        //public int TrainingId { get; set; }
-
         public int ScoreResult { get; set; }
     }
 }
