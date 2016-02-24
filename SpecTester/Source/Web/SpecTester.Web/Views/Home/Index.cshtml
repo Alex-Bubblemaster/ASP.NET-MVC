@@ -1,10 +1,12 @@
-﻿@model IEnumerable<SpecTester.Web.ViewModels.Home.TrainingViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<SpecTester.Web.ViewModels.Home.TrainingViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
-<h1>Training</h1>
+<h1 class="text-center">Training</h1>
 <div class="row">
-    <table class="table">
+    <img id="homePage" class="img-responsive img-rounded" src="~/Content/images/site/homepage.jpg" />
+    <table class="table table-hover table-striped">
         <tr>
             <th>#</th>
             <th>Name</th>
@@ -17,7 +19,7 @@
         {
             <tr>
                 <td>@training.Id</td>
-                <td><a href="@training.Url">@training.Name</a></td>
+                <td>@training.Name</td>
                 <td>
                     @foreach(var dish in training.Dishes)
                     {
@@ -32,26 +34,8 @@
     </table>
 </div>
 <div class="text-center">
-    <ul class="pagination pagination-lg">
-        @{
-            var pages = int.Parse(ViewBag.Pages.ToString());
-            var current = int.Parse(ViewBag.CurrentPage.ToString());
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            for (int i = 0; i < pages; i++)
-            {
-                if (current == i)
-                {
-                    <li class="active">
-                        <a href="?page=@i">@(i + 1)</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="?page=@i">@(i + 1)</a>
-                    </li>
-                }
-            }
-        }
-    </ul>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

@@ -4,7 +4,7 @@
     using System.Web.Mvc;
 
     using Infrastructure.Mapping;
-
+    using PagedList;
     using Services.Data.Contracts;
     using ViewModels.Home;
 
@@ -18,25 +18,18 @@
         }
 
         [HttpGet]
-        public ActionResult Index(int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            int toSkip = 0;
-            int toTake = 5;
-
-            if (page != null)
-            {
-                toSkip = int.Parse(page.ToString());
-            }
-
+            this.ViewBag.CurrentSort = sortOrder;
+            page = 1;
             var trainingSessions = this.trainings
-                .GetAllWithPaging(toSkip, toTake)
+                .All()
                 .To<TrainingViewModel>()
                 .ToList();
 
-            this.ViewBag.Pages = trainingSessions.Count / toTake;
-            this.ViewBag.CurrentPage = toSkip;
-
-            return this.View(trainingSessions);
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+            return this.View(trainingSessions.ToPagedList(pageNumber, pageSize));
         }
     }
 }

@@ -12,7 +12,7 @@
 
         TrainingSession GetById(int id);
 
-        void UpdateUserScore(int score, int triningId, string userId);
+        void UpdateUserScore(int score, int triningId, int dishId, string userId);
 
         int Cook(string userId, int trainingId, int dishId, IEnumerable<int> selectedProducts);
     }

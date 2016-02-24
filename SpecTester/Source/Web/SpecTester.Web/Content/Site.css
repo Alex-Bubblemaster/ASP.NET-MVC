@@ -38,6 +38,12 @@ textarea {
     min-height: 100%;
 }
 
+#homePage{
+     display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
 #mybook {
     top: 50px;
     left: -10px;
@@ -81,4 +87,9 @@ textarea {
     left: 35%;
     width: 34%;
     height: 35%;
+}
+
+.moved-products{
+    width: 100px;
+    height:100px;
 }

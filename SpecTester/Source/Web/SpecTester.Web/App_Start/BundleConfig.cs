@@ -35,7 +35,7 @@
                 "~/Content/Kendo/kendo.silver.min.css"));
             bundles.Add(new StyleBundle("~/Content/booklet-css").Include("~/Content/booklet/jquery.booklet.latest.css"));
             bundles.Add(new StyleBundle("~/Content/dragula-css").Include("~/Content/dragula/dragula.min.css"));
-
+            bundles.Add(new StyleBundle("~/Content/pagedlist-css").Include("~/Content/PagedList.css"));
         }
     }
 }

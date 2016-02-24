@@ -16,8 +16,6 @@
 
         IQueryable<TrainingSession> All();
 
-        IQueryable<TrainingSession> GetAllWithPaging(int skip, int take);
-
         TrainingSession GetById(int id);
 
         void Save();

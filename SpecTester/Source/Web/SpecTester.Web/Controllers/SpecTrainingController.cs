@@ -21,14 +21,14 @@
             this.products = products;
         }
 
-        public ActionResult Join(int id)
+        public ActionResult Join(int? id)
         {
             string userId = this.User.Identity.GetUserId();
-            this.userTrainings.JoinTraining(id, userId);
-            var training = this.userTrainings.GetById(id);
+            this.userTrainings.JoinTraining(int.Parse(id.ToString()), userId);
 
-            if (training != null)
+            if (id != null)
             {
+                var training = this.userTrainings.GetById(int.Parse(id.ToString()));
                 var model = this.Mapper.Map<TrainingViewModel>(training);
                 return this.PartialView("_TrainingDetail", model);
             }
@@ -62,7 +62,7 @@
             var userId = this.User.Identity.GetUserId();
             int matches = this.userTrainings.Cook(userId, trainingId, id, selectedItems);
 
-            return this.RedirectToAction("Join", new { id = id });
+            return this.Join(trainingId);
         }
     }
 }

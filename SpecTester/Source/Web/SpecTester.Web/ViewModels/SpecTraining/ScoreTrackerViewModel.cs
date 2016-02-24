@@ -8,5 +8,9 @@
         public string UserId { get; set; }
 
         public int ScoreResult { get; set; }
+
+        public int DishId { get; set; }
+
+        public int TrainingId { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿@using System.Linq
 @using Microsoft.AspNet.Identity
-    @model SpecTester.Web.ViewModels.Home.TrainingViewModel
-    @{
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    <br />
+@model SpecTester.Web.ViewModels.Home.TrainingViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div id="helperId">
     <div class="row" id="menu">
         <div class="col-md-8">
             <div class="well">
@@ -53,9 +54,9 @@
             </div>
         </div>
     </div>
-
-    @section scripts{
-        <script>
+</div>
+@section scripts{
+    <script>
             var currentRecipe;
             var id;
             var dishHeading;
@@ -119,9 +120,12 @@
                     type: 'POST',
                     url: "/SpecTraining/Cook/" + id,
                     data: JSON.stringify(productsSelected),
-                    contentType: "application/json;"
+                    contentType: "application/json;",
+                    success: function () {
+                        location.reload();
+                    }
                 })
             });
 
-        </script>
-    }
+    </script>
+}

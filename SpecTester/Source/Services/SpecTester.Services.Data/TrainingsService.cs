@@ -54,17 +54,6 @@
             return trainings;
         }
 
-        public IQueryable<TrainingSession> GetAllWithPaging(int skip = 1, int take = 10)
-        {
-            var trainings = this.trainings
-                .All()
-                .OrderBy(x => x.Name)
-                .Skip(skip * take)
-                .Take(take);
-
-            return trainings;
-        }
-
         public TrainingSession GetById(int id)
         {
             var session = this.trainings.GetById(id);

@@ -23,13 +23,15 @@
             var targetTraining = this.trainings.GetById(id);
             var user = this.users.GetById(userId);
 
-            if (!targetTraining.Users.Contains(user))
+            if (!targetTraining.Users.Any() && targetTraining != null && user != null)
             {
                 user.TrainingSessions.Add(targetTraining);
                 targetTraining.Users.Add(user);
                 this.trainings.Save();
                 this.users.Save();
             }
+
+            // TODO bot found
         }
 
         public double CompletedIn(DateTime start, DateTime finish)
@@ -73,15 +75,15 @@
                 }
             }
 
-            this.UpdateUserScore(matches, trainingId, userId);
+            this.UpdateUserScore(matches, trainingId, dishId, userId);
             return matches;
         }
 
-        public void UpdateUserScore(int score, int trainingId, string userId)
+        public void UpdateUserScore(int score, int trainingId, int dishId, string userId)
         {
             var user = this.users.GetById(userId);
             var training = this.trainings.GetById(trainingId);
-            var userScoreTracker = user.ScoreTrackers.FirstOrDefault(x => x.TrainingId == trainingId);
+            var userScoreTracker = user.ScoreTrackers.FirstOrDefault(x => x.TrainingId == trainingId && x.DishId == dishId);
             if (userScoreTracker != null)
             {
                 if (score > userScoreTracker.ScoreResult)
@@ -95,13 +97,16 @@
             }
             else
             {
+                var dish = training.Dishes.FirstOrDefault(x => x.Id == dishId);
                 user.ScoreTrackers.Add(new ScoreTracker()
                 {
                     ScoreResult = score,
                     UserId = userId,
                     User = user,
                     TrainingId = trainingId,
-                    TrainingSession = training
+                    TrainingSession = training,
+                    DishId = dishId,
+                    Dish = dish
                 });
                 this.users.Save();
             }

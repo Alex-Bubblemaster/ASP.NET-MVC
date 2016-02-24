@@ -1,7 +1,6 @@
 ﻿namespace SpecTester.Web.ViewModels.Home
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Areas.Administration.ViewModels;
     using AutoMapper;
     using Common;
