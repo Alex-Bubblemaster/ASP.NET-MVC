@@ -37,6 +37,12 @@ Featuring a cook book with recipes with the help of booklet.js that you can flip
 
 <a href="http://tinypic.com?ref=2uhmm14" target="_blank"><img src="http://i63.tinypic.com/2uhmm14.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
 
+## Error Handling
+
+for now there is only 404 and it handles both 500 and 404. More coming soon
+
+<a href="http://tinypic.com?ref=k2fj8z" target="_blank"><img src="http://i65.tinypic.com/k2fj8z.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
+
 ## User statistics 
 
 Comining soon
