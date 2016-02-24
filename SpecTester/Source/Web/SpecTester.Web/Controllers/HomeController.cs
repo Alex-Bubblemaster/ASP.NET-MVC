@@ -30,7 +30,8 @@
 
             var trainings = this.cache
                 .Get("HomePageData", () => this.trainings.All().To<TrainingViewModel>().ToList(), 5 * 60);
-            /// var trainings = this.trainings.All().To<TrainingViewModel>().ToList();
+
+            // var trainings = this.trainings.All().To<TrainingViewModel>().ToList();
             int pageSize = 3;
             int pageNumber = page ?? 1;
             return this.View(trainings.ToPagedList(pageNumber, pageSize));

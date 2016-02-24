@@ -1,6 +1,7 @@
 ﻿namespace SpecTester.Web.ViewModels.Home
 {
     using System.Collections.Generic;
+    using System.Web.Mvc;
     using Areas.Administration.ViewModels;
     using AutoMapper;
     using Common;
@@ -11,6 +12,7 @@
 
     public class TrainingViewModel : IMapFrom<TrainingSession>, IHaveCustomMappings
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         public string Name { get; set; }

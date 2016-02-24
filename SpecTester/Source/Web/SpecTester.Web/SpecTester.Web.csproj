@@ -274,6 +274,7 @@
     <Content Include="Content\images\products\blackPudding.png" />
     <Content Include="Content\images\products\sausages.png" />
     <Content Include="Content\images\products\toast.png" />
+    <Content Include="Content\images\site\404-not-found-error.jpg" />
     <Content Include="Content\images\site\cookbook.png" />
     <Content Include="Content\images\products\friedegg.png" />
     <Content Include="Content\images\products\mushrooms.png" />
@@ -549,7 +550,6 @@
     <Folder Include="Content\Kendo\Silver\" />
     <Folder Include="Content\Kendo\textures\" />
     <Folder Include="Content\Kendo\Uniform\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
